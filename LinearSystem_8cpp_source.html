@@ -81,7 +81,7 @@ $(function() {
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    blockSize = nb * nb;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    blockDim  = nb;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    dim = 0;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    dim       = 0;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    maxDim    = dimMax;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    rowCapacity.resize(maxDim);</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    colId.resize(maxDim);</div>
@@ -90,8 +90,8 @@ $(function() {
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    u.resize(maxDim * blockDim);</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classLinearSystem.html#a38c054271a9283a340aae6e63c86517d">   27</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#a38c054271a9283a340aae6e63c86517d">LinearSystem::AllocateColMem</a>(<span class="keyword">const</span> vector&lt;USI&gt;&amp; bulk2bulk, <span class="keyword">const</span> vector&lt;vector&lt;OCP_USI&gt;&gt; well2bulk)</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classLinearSystem.html#a38c054271a9283a340aae6e63c86517d">   26</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#a38c054271a9283a340aae6e63c86517d">LinearSystem::AllocateColMem</a>(<span class="keyword">const</span> vector&lt;USI&gt;&amp;            bulk2bulk,</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                                  <span class="keyword">const</span> vector&lt;vector&lt;OCP_USI&gt;&gt; well2bulk)</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="comment">// Bulk to Bulk</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bulkNum = bulk2bulk.size();</div>
@@ -100,174 +100,171 @@ $(function() {
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="comment">// Bulk to Well</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> wellNum = well2bulk.size();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> maxPerfNum = 0;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> wellNum    = well2bulk.size();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>           maxPerfNum = 0;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; w : well2bulk) {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; p : w)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            rowCapacity[p]++;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">if</span> (maxPerfNum &lt; w.size()) {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            maxPerfNum = w.size();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">// If Reinjection is considered, then more memory is needed</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="comment">// Well to Bulk</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> w = bulkNum; w &lt; bulkNum + wellNum; w++) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        rowCapacity[w] += (maxPerfNum + 1);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; maxDim; n++) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        colId[n].reserve(rowCapacity[n]);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        val[n].reserve(rowCapacity[n] * blockSize);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classLinearSystem.html#ac2d8f5dff588a1eb4511fe519a817116">   59</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#ac2d8f5dff588a1eb4511fe519a817116">LinearSystem::ClearData</a>()</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;{</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; maxDim; i++) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        colId[i].clear(); <span class="comment">// actually, only parts of bulks needs to be clear</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        val[i].clear();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="comment">// diagPtr.assign(maxDim, 0);</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    fill(b.begin(), b.end(), 0.0);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    dim = 0;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">// In fact, for linear system the current solution is a good initial solution for</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="comment">// next step, so u will not be set to zero. u.assign(maxDim, 0);</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classLinearSystem.html#a8fff58c2482b914b929c51db5b02f71e">   72</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#a8fff58c2482b914b929c51db5b02f71e">LinearSystem::AssembleRhsAccumulate</a>(<span class="keyword">const</span> vector&lt;OCP_DBL&gt;&amp; rhs)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> nrow = dim * blockDim;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; nrow; i++) {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        b[i] += rhs[i];</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classLinearSystem.html#a4d558700856702ff63e74814a8b49478">   81</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#a4d558700856702ff63e74814a8b49478">LinearSystem::AssembleRhsCopy</a>(<span class="keyword">const</span> vector&lt;OCP_DBL&gt;&amp; rhs)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;{</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">Dcopy</a>(dim * blockDim, &amp;b[0], &amp;rhs[0]);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="classLinearSystem.html#a0215e4fecc28ca309b843edfc105f9da">   87</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#a0215e4fecc28ca309b843edfc105f9da">LinearSystem::OutputLinearSystem</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fileA, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fileb)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">string</span> FileA = solveDir + fileA;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">string</span> Fileb = solveDir + fileb;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="comment">// out A</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="comment">// csr or bsr</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    ofstream outA(FileA);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">if</span> (!outA.is_open()) cout &lt;&lt; <span class="stringliteral">&quot;Can not open &quot;</span> &lt;&lt; FileA &lt;&lt; endl;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    outA &lt;&lt; dim &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">if</span> (blockDim != 1) {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        outA &lt;&lt; blockDim &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="comment">// IA</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> rowId = 1;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; dim; i++) {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        outA &lt;&lt; rowId &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        rowId += colId[i].size();</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    }</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    outA &lt;&lt; rowId &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="comment">// JA</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> rowSize = 0;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; dim; i++) {</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        rowSize = colId[i].size();</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; rowSize; j++) {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            outA &lt;&lt; colId[i][j] + 1 &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        }</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    }</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="comment">// val</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; dim; i++) {</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        rowSize = val[i].size();</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; rowSize; j++) {</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            outA &lt;&lt; val[i][j] &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    outA.close();</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="comment">// out b</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>  nRow = dim * blockDim;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    ofstream outb(Fileb);</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">if</span> (!outb.is_open()) cout &lt;&lt; <span class="stringliteral">&quot;Can not open &quot;</span> &lt;&lt; Fileb &lt;&lt; endl;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    outb &lt;&lt; dim &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; nRow; i++) {</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        outb &lt;&lt; b[i] &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    }</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;}</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="classLinearSystem.html#afe9a6847a72a604fb072a2cadefd3b4f">  134</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#afe9a6847a72a604fb072a2cadefd3b4f">LinearSystem::OutputSolution</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fileU)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordtype">string</span>   FileU = solveDir + fileU;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    ofstream outu(FileU);</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">if</span> (!outu.is_open()) cout &lt;&lt; <span class="stringliteral">&quot;Can not open &quot;</span> &lt;&lt; FileU &lt;&lt; endl;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    outu &lt;&lt; dim &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> nrow = dim * blockDim;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; nrow; i++) outu &lt;&lt; u[i] &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    outu.close();</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;}</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="classLinearSystem.html#aeb8c076d996a33737689e0ac52e93d5a">  145</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#aeb8c076d996a33737689e0ac52e93d5a">LinearSystem::CheckEquation</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="comment">// check A</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; dim; n++) {</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> v : val[n]) {</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            <span class="keywordflow">if</span> (!isfinite(v)) {</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;NAN or INF in MAT&quot;</span>);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            }</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        }</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    }</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="comment">// check b</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> len = dim * blockDim;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; len; n++) {</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">if</span> (!isfinite(b[n])) {</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;NAN or INF in rhs&quot;</span>);</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        }</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    }</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;}</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="classLinearSystem.html#aff2901216eef0a6c0d6158c552263b04">  164</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#aff2901216eef0a6c0d6158c552263b04">LinearSystem::CheckSolution</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> len = dim * blockDim;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; len; n++) {</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keywordflow">if</span> (!isfinite(u[n])) {</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;NAN or INF in u&quot;</span>);</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        }</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    }</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;}</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="classLinearSystem.html#af9051ec6ecd4fe4b0d9a067b0c372c34">  175</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#af9051ec6ecd4fe4b0d9a067b0c372c34">LinearSystem::SetupLinearSolver</a>(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; i, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; dir,</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                                     <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; file)</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;{</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    solveDir = dir;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keywordflow">switch</span> (i) {</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ad0ca1ecfe42ae25af74e291b59ac59e9">SCALARFASP</a>:</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;            <span class="comment">// Fasp</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            LS = <span class="keyword">new</span> <a class="code" href="classScalarFaspSolver.html">ScalarFaspSolver</a>;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a038c1241f7ffc6a37b1b4e99dcab9cd9">VECTORFASP</a>:</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            <span class="comment">// Blcok Fasp</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            LS = <span class="keyword">new</span> <a class="code" href="classVectorFaspSolver.html">VectorFaspSolver</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; p : w) rowCapacity[p]++;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">if</span> (maxPerfNum &lt; w.size()) {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            maxPerfNum = w.size();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">// If Reinjection is considered, then more memory is needed</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">// Well to Bulk</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> w = bulkNum; w &lt; bulkNum + wellNum; w++) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        rowCapacity[w] += (maxPerfNum + 1);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; maxDim; n++) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        colId[n].reserve(rowCapacity[n]);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        val[n].reserve(rowCapacity[n] * blockSize);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classLinearSystem.html#ac2d8f5dff588a1eb4511fe519a817116">   57</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#ac2d8f5dff588a1eb4511fe519a817116">LinearSystem::ClearData</a>()</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;{</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; maxDim; i++) {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        colId[i].clear(); <span class="comment">// actually, only parts of bulks needs to be clear</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        val[i].clear();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="comment">// diagPtr.assign(maxDim, 0);</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    fill(b.begin(), b.end(), 0.0);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    dim = 0;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="comment">// In fact, for linear system the current solution is a good initial solution for</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="comment">// next step, so u will not be set to zero. u.assign(maxDim, 0);</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classLinearSystem.html#a8fff58c2482b914b929c51db5b02f71e">   70</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#a8fff58c2482b914b929c51db5b02f71e">LinearSystem::AssembleRhsAccumulate</a>(<span class="keyword">const</span> vector&lt;OCP_DBL&gt;&amp; rhs)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;{</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> nrow = dim * blockDim;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; nrow; i++) {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        b[i] += rhs[i];</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="classLinearSystem.html#a4d558700856702ff63e74814a8b49478">   78</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#a4d558700856702ff63e74814a8b49478">LinearSystem::AssembleRhsCopy</a>(<span class="keyword">const</span> vector&lt;OCP_DBL&gt;&amp; rhs)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;{</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">Dcopy</a>(dim * blockDim, &amp;b[0], &amp;rhs[0]);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classLinearSystem.html#a0215e4fecc28ca309b843edfc105f9da">   83</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#a0215e4fecc28ca309b843edfc105f9da">LinearSystem::OutputLinearSystem</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fileA, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fileb)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">string</span> FileA = solveDir + fileA;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">string</span> Fileb = solveDir + fileb;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="comment">// out A</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="comment">// csr or bsr</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    ofstream outA(FileA);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">if</span> (!outA.is_open()) cout &lt;&lt; <span class="stringliteral">&quot;Can not open &quot;</span> &lt;&lt; FileA &lt;&lt; endl;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    outA &lt;&lt; dim &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">if</span> (blockDim != 1) {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        outA &lt;&lt; blockDim &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    }</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="comment">// IA</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> rowId = 1;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; dim; i++) {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        outA &lt;&lt; rowId &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        rowId += colId[i].size();</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    outA &lt;&lt; rowId &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">// JA</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> rowSize = 0;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; dim; i++) {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        rowSize = colId[i].size();</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; rowSize; j++) {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            outA &lt;&lt; colId[i][j] + 1 &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    }</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="comment">// val</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; dim; i++) {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        rowSize = val[i].size();</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; rowSize; j++) {</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            outA &lt;&lt; val[i][j] &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        }</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    }</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    outA.close();</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="comment">// out b</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>  nRow = dim * blockDim;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    ofstream outb(Fileb);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">if</span> (!outb.is_open()) cout &lt;&lt; <span class="stringliteral">&quot;Can not open &quot;</span> &lt;&lt; Fileb &lt;&lt; endl;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    outb &lt;&lt; dim &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; nRow; i++) {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        outb &lt;&lt; b[i] &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    }</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;}</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="classLinearSystem.html#afe9a6847a72a604fb072a2cadefd3b4f">  130</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#afe9a6847a72a604fb072a2cadefd3b4f">LinearSystem::OutputSolution</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fileU)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">string</span>   FileU = solveDir + fileU;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    ofstream outu(FileU);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordflow">if</span> (!outu.is_open()) cout &lt;&lt; <span class="stringliteral">&quot;Can not open &quot;</span> &lt;&lt; FileU &lt;&lt; endl;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    outu &lt;&lt; dim &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> nrow = dim * blockDim;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; nrow; i++) outu &lt;&lt; u[i] &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    outu.close();</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;}</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="classLinearSystem.html#aeb8c076d996a33737689e0ac52e93d5a">  141</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#aeb8c076d996a33737689e0ac52e93d5a">LinearSystem::CheckEquation</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="comment">// check A</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; dim; n++) {</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> v : val[n]) {</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            <span class="keywordflow">if</span> (!isfinite(v)) {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;NAN or INF in MAT&quot;</span>);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            }</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        }</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    }</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="comment">// check b</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> len = dim * blockDim;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; len; n++) {</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        <span class="keywordflow">if</span> (!isfinite(b[n])) {</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;NAN or INF in rhs&quot;</span>);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        }</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    }</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;}</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="classLinearSystem.html#aff2901216eef0a6c0d6158c552263b04">  160</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#aff2901216eef0a6c0d6158c552263b04">LinearSystem::CheckSolution</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> len = dim * blockDim;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; len; n++) {</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keywordflow">if</span> (!isfinite(u[n])) {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;NAN or INF in u&quot;</span>);</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        }</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    }</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;}</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="classLinearSystem.html#af9051ec6ecd4fe4b0d9a067b0c372c34">  171</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classLinearSystem.html#af9051ec6ecd4fe4b0d9a067b0c372c34">LinearSystem::SetupLinearSolver</a>(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp;    i,</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                                     <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; dir,</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                                     <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; file)</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;{</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    solveDir = dir;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keywordflow">switch</span> (i) {</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ad0ca1ecfe42ae25af74e291b59ac59e9">SCALARFASP</a>:</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            <span class="comment">// Fasp</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;            LS = <span class="keyword">new</span> <a class="code" href="classScalarFaspSolver.html">ScalarFaspSolver</a>;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a038c1241f7ffc6a37b1b4e99dcab9cd9">VECTORFASP</a>:</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            <span class="comment">// Blcok Fasp</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            LS = <span class="keyword">new</span> <a class="code" href="classVectorFaspSolver.html">VectorFaspSolver</a>;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Linear Solver type!&quot;</span>);</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Linear Solver type!&quot;</span>);</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    }</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    LS-&gt;<a class="code" href="classLinearSolver.html#a64ec5c45d54739399c493ddd3a09d989">SetupParam</a>(dir, file);</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    LS-&gt;<a class="code" href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">Allocate</a>(rowCapacity, maxDim, blockDim);</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;}</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    }</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    LS-&gt;<a class="code" href="classLinearSolver.html#a64ec5c45d54739399c493ddd3a09d989">SetupParam</a>(dir, file);</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    LS-&gt;<a class="code" href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">Allocate</a>(rowCapacity, maxDim, blockDim);</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;}</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="comment">/*  Shizhe Li           Nov/22/2021      renamed to LinearSystem              */</span></div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="comment">/*  Shizhe Li           Nov/22/2021      renamed to LinearSystem              */</span></div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="ttc" id="aDenseMat_8hpp_html_ae3d6d69eb9175bc2ed3414c44bde7a8d"><div class="ttname"><a href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">Dcopy</a></div><div class="ttdeci">void Dcopy(const int &amp;N, double *dst, const double *src)</div><div class="ttdoc">Calculate the minimal eigenvalue for symmetric matrix with mkl lapack.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00037">DenseMat.cpp:37</a></div></div>
+<div class="ttc" id="aDenseMat_8hpp_html_ae3d6d69eb9175bc2ed3414c44bde7a8d"><div class="ttname"><a href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">Dcopy</a></div><div class="ttdeci">void Dcopy(const int &amp;N, double *dst, const double *src)</div><div class="ttdoc">Calculate the minimal eigenvalue for symmetric matrix with mkl lapack.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00036">DenseMat.cpp:36</a></div></div>
 <div class="ttc" id="aLinearSystem_8hpp_html"><div class="ttname"><a href="LinearSystem_8hpp.html">LinearSystem.hpp</a></div><div class="ttdoc">Linear solver class declaration.</div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a038c1241f7ffc6a37b1b4e99dcab9cd9"><div class="ttname"><a href="OCPConst_8hpp.html#a038c1241f7ffc6a37b1b4e99dcab9cd9">VECTORFASP</a></div><div class="ttdeci">const USI VECTORFASP</div><div class="ttdoc">Use vector linear solver in Fasp.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00088">OCPConst.hpp:88</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
@@ -276,22 +273,22 @@ $(function() {
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 <div class="ttc" id="aclassLinearSolver_html_a557b72e1e621fdd8750d30df2373c748"><div class="ttname"><a href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">LinearSolver::Allocate</a></div><div class="ttdeci">virtual void Allocate(const vector&lt; USI &gt; &amp;rowCapacity, const OCP_USI &amp;maxDim, const USI &amp;blockDim)=0</div><div class="ttdoc">Allocate maximum memory for linear solvers.</div></div>
 <div class="ttc" id="aclassLinearSolver_html_a64ec5c45d54739399c493ddd3a09d989"><div class="ttname"><a href="classLinearSolver.html#a64ec5c45d54739399c493ddd3a09d989">LinearSolver::SetupParam</a></div><div class="ttdeci">virtual void SetupParam(const string &amp;dir, const string &amp;file)=0</div><div class="ttdoc">Read the params for linear solvers from an input file.</div></div>
-<div class="ttc" id="aclassLinearSystem_html_a0215e4fecc28ca309b843edfc105f9da"><div class="ttname"><a href="classLinearSystem.html#a0215e4fecc28ca309b843edfc105f9da">LinearSystem::OutputLinearSystem</a></div><div class="ttdeci">void OutputLinearSystem(const string &amp;fileA, const string &amp;fileb) const</div><div class="ttdoc">Output the mat and rhs to fileA and fileb. // TODO: output to some obj?</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00087">LinearSystem.cpp:87</a></div></div>
-<div class="ttc" id="aclassLinearSystem_html_a38c054271a9283a340aae6e63c86517d"><div class="ttname"><a href="classLinearSystem.html#a38c054271a9283a340aae6e63c86517d">LinearSystem::AllocateColMem</a></div><div class="ttdeci">void AllocateColMem(const vector&lt; USI &gt; &amp;bulk2bulk, const vector&lt; vector&lt; OCP_USI &gt;&gt; well2bulk)</div><div class="ttdoc">Allocate memory for linear system with max possible number of columns.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00027">LinearSystem.cpp:27</a></div></div>
-<div class="ttc" id="aclassLinearSystem_html_a4d558700856702ff63e74814a8b49478"><div class="ttname"><a href="classLinearSystem.html#a4d558700856702ff63e74814a8b49478">LinearSystem::AssembleRhsCopy</a></div><div class="ttdeci">void AssembleRhsCopy(const vector&lt; OCP_DBL &gt; &amp;rhs)</div><div class="ttdoc">Assign Rhs by Copying.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00081">LinearSystem.cpp:81</a></div></div>
-<div class="ttc" id="aclassLinearSystem_html_a8fff58c2482b914b929c51db5b02f71e"><div class="ttname"><a href="classLinearSystem.html#a8fff58c2482b914b929c51db5b02f71e">LinearSystem::AssembleRhsAccumulate</a></div><div class="ttdeci">void AssembleRhsAccumulate(const vector&lt; OCP_DBL &gt; &amp;rhs)</div><div class="ttdoc">Assign Rhs by Accumulating.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00072">LinearSystem.cpp:72</a></div></div>
+<div class="ttc" id="aclassLinearSystem_html_a0215e4fecc28ca309b843edfc105f9da"><div class="ttname"><a href="classLinearSystem.html#a0215e4fecc28ca309b843edfc105f9da">LinearSystem::OutputLinearSystem</a></div><div class="ttdeci">void OutputLinearSystem(const string &amp;fileA, const string &amp;fileb) const</div><div class="ttdoc">Output the mat and rhs to fileA and fileb. // TODO: output to some obj?</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00083">LinearSystem.cpp:83</a></div></div>
+<div class="ttc" id="aclassLinearSystem_html_a38c054271a9283a340aae6e63c86517d"><div class="ttname"><a href="classLinearSystem.html#a38c054271a9283a340aae6e63c86517d">LinearSystem::AllocateColMem</a></div><div class="ttdeci">void AllocateColMem(const vector&lt; USI &gt; &amp;bulk2bulk, const vector&lt; vector&lt; OCP_USI &gt;&gt; well2bulk)</div><div class="ttdoc">Allocate memory for linear system with max possible number of columns.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00026">LinearSystem.cpp:26</a></div></div>
+<div class="ttc" id="aclassLinearSystem_html_a4d558700856702ff63e74814a8b49478"><div class="ttname"><a href="classLinearSystem.html#a4d558700856702ff63e74814a8b49478">LinearSystem::AssembleRhsCopy</a></div><div class="ttdeci">void AssembleRhsCopy(const vector&lt; OCP_DBL &gt; &amp;rhs)</div><div class="ttdoc">Assign Rhs by Copying.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00078">LinearSystem.cpp:78</a></div></div>
+<div class="ttc" id="aclassLinearSystem_html_a8fff58c2482b914b929c51db5b02f71e"><div class="ttname"><a href="classLinearSystem.html#a8fff58c2482b914b929c51db5b02f71e">LinearSystem::AssembleRhsAccumulate</a></div><div class="ttdeci">void AssembleRhsAccumulate(const vector&lt; OCP_DBL &gt; &amp;rhs)</div><div class="ttdoc">Assign Rhs by Accumulating.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00070">LinearSystem.cpp:70</a></div></div>
 <div class="ttc" id="aclassLinearSystem_html_a97b1b8a843d49ac3968278c68fce975d"><div class="ttname"><a href="classLinearSystem.html#a97b1b8a843d49ac3968278c68fce975d">LinearSystem::AllocateRowMem</a></div><div class="ttdeci">void AllocateRowMem(const OCP_USI &amp;dimMax, const USI &amp;nb)</div><div class="ttdoc">Allocate memory for linear system with max possible number of rows.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00013">LinearSystem.cpp:13</a></div></div>
-<div class="ttc" id="aclassLinearSystem_html_ac2d8f5dff588a1eb4511fe519a817116"><div class="ttname"><a href="classLinearSystem.html#ac2d8f5dff588a1eb4511fe519a817116">LinearSystem::ClearData</a></div><div class="ttdeci">void ClearData()</div><div class="ttdoc">Clear the internal matrix data for scalar-value problems.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00059">LinearSystem.cpp:59</a></div></div>
-<div class="ttc" id="aclassLinearSystem_html_aeb8c076d996a33737689e0ac52e93d5a"><div class="ttname"><a href="classLinearSystem.html#aeb8c076d996a33737689e0ac52e93d5a">LinearSystem::CheckEquation</a></div><div class="ttdeci">void CheckEquation() const</div><div class="ttdoc">Check whether NAN or INF occurs in equations, used in debug mode.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00145">LinearSystem.cpp:145</a></div></div>
-<div class="ttc" id="aclassLinearSystem_html_af9051ec6ecd4fe4b0d9a067b0c372c34"><div class="ttname"><a href="classLinearSystem.html#af9051ec6ecd4fe4b0d9a067b0c372c34">LinearSystem::SetupLinearSolver</a></div><div class="ttdeci">void SetupLinearSolver(const USI &amp;i, const string &amp;dir, const string &amp;file)</div><div class="ttdoc">Setup LinearSolver.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00175">LinearSystem.cpp:175</a></div></div>
-<div class="ttc" id="aclassLinearSystem_html_afe9a6847a72a604fb072a2cadefd3b4f"><div class="ttname"><a href="classLinearSystem.html#afe9a6847a72a604fb072a2cadefd3b4f">LinearSystem::OutputSolution</a></div><div class="ttdeci">void OutputSolution(const string &amp;filename) const</div><div class="ttdoc">Output the solution to a disk file name.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00134">LinearSystem.cpp:134</a></div></div>
-<div class="ttc" id="aclassLinearSystem_html_aff2901216eef0a6c0d6158c552263b04"><div class="ttname"><a href="classLinearSystem.html#aff2901216eef0a6c0d6158c552263b04">LinearSystem::CheckSolution</a></div><div class="ttdeci">void CheckSolution() const</div><div class="ttdoc">Check whether NAN or INF occurs in solutions, used in debug mode.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00164">LinearSystem.cpp:164</a></div></div>
+<div class="ttc" id="aclassLinearSystem_html_ac2d8f5dff588a1eb4511fe519a817116"><div class="ttname"><a href="classLinearSystem.html#ac2d8f5dff588a1eb4511fe519a817116">LinearSystem::ClearData</a></div><div class="ttdeci">void ClearData()</div><div class="ttdoc">Clear the internal matrix data for scalar-value problems.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00057">LinearSystem.cpp:57</a></div></div>
+<div class="ttc" id="aclassLinearSystem_html_aeb8c076d996a33737689e0ac52e93d5a"><div class="ttname"><a href="classLinearSystem.html#aeb8c076d996a33737689e0ac52e93d5a">LinearSystem::CheckEquation</a></div><div class="ttdeci">void CheckEquation() const</div><div class="ttdoc">Check whether NAN or INF occurs in equations, used in debug mode.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00141">LinearSystem.cpp:141</a></div></div>
+<div class="ttc" id="aclassLinearSystem_html_af9051ec6ecd4fe4b0d9a067b0c372c34"><div class="ttname"><a href="classLinearSystem.html#af9051ec6ecd4fe4b0d9a067b0c372c34">LinearSystem::SetupLinearSolver</a></div><div class="ttdeci">void SetupLinearSolver(const USI &amp;i, const string &amp;dir, const string &amp;file)</div><div class="ttdoc">Setup LinearSolver.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00171">LinearSystem.cpp:171</a></div></div>
+<div class="ttc" id="aclassLinearSystem_html_afe9a6847a72a604fb072a2cadefd3b4f"><div class="ttname"><a href="classLinearSystem.html#afe9a6847a72a604fb072a2cadefd3b4f">LinearSystem::OutputSolution</a></div><div class="ttdeci">void OutputSolution(const string &amp;filename) const</div><div class="ttdoc">Output the solution to a disk file name.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00130">LinearSystem.cpp:130</a></div></div>
+<div class="ttc" id="aclassLinearSystem_html_aff2901216eef0a6c0d6158c552263b04"><div class="ttname"><a href="classLinearSystem.html#aff2901216eef0a6c0d6158c552263b04">LinearSystem::CheckSolution</a></div><div class="ttdeci">void CheckSolution() const</div><div class="ttdoc">Check whether NAN or INF occurs in solutions, used in debug mode.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00160">LinearSystem.cpp:160</a></div></div>
 <div class="ttc" id="aclassScalarFaspSolver_html"><div class="ttname"><a href="classScalarFaspSolver.html">ScalarFaspSolver</a></div><div class="ttdoc">Scalar solvers in CSR format from FASP.</div><div class="ttdef"><b>Definition:</b> <a href="FaspSolver_8hpp_source.html#l00092">FaspSolver.hpp:93</a></div></div>
 <div class="ttc" id="aclassVectorFaspSolver_html"><div class="ttname"><a href="classVectorFaspSolver.html">VectorFaspSolver</a></div><div class="ttdoc">Vector solvers in BSR format from FASP.</div><div class="ttdef"><b>Definition:</b> <a href="FaspSolver_8hpp_source.html#l00123">FaspSolver.hpp:124</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 5 2023 08:28:20 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Feb 5 2023 08:32:04 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

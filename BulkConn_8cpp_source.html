@@ -85,286 +85,281 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">// General</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classBulkConn.html#aada61af0620060a623503dd8221bfb05">   25</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulkConn.html#aada61af0620060a623503dd8221bfb05">BulkConn::SetupIsoT</a>(<span class="keyword">const</span> <a class="code" href="classGrid.html">Grid</a>&amp; myGrid, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="classBulkConn.html#aa39281da12836639a2fe0aea4f39be1b">Setup</a>(myGrid);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="classBulkConn.html#a2f248c9e8b95a8fac0a4d2d4fd806b8f">CalAkd</a>(myBulk);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classBulkConn.html#aa39281da12836639a2fe0aea4f39be1b">   33</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulkConn.html#aa39281da12836639a2fe0aea4f39be1b">BulkConn::Setup</a>(<span class="keyword">const</span> <a class="code" href="classGrid.html">Grid</a>&amp; myGrid)</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;{</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="classBulkConn.html#a023cb90f5cc887a0988572429ebded72">numConn</a> = 0;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="classBulkConn.html#a126be16e46215cf50c6f2a5d76878249">numBulk</a> = myGrid.<a class="code" href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">activeGridNum</a>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="classBulkConn.html#aa9fabc501208d98dd099fef2b51ff943">neighbor</a>.resize(<a class="code" href="classBulkConn.html#a126be16e46215cf50c6f2a5d76878249">numBulk</a>);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="classBulkConn.html#a9fa771e98553c383ca6f289e69a76e05">selfPtr</a>.resize(<a class="code" href="classBulkConn.html#a126be16e46215cf50c6f2a5d76878249">numBulk</a>);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="classBulkConn.html#ae05d9064be69e11691e0d5a928927fbd">neighborNum</a>.resize(<a class="code" href="classBulkConn.html#a126be16e46215cf50c6f2a5d76878249">numBulk</a>);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    vector&lt;GPair&gt; tmp1, tmp2;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>           len;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>       bIdb;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; myGrid.<a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a>; n++) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keyword">const</span> <a class="code" href="classGB__Pair.html">GB_Pair</a>&amp; GBtmp = myGrid.<a class="code" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a>[n];</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">if</span> (GBtmp.<a class="code" href="classGB__Pair.html#a420ac8073c7c2ad65d65ebc0b418c985">IsAct</a>()) {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            bIdb = GBtmp.<a class="code" href="classGB__Pair.html#a89469eb8092da8ccd1c8914bd4f1e808">GetId</a>();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="comment">// Get rid of inactive neighbor</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            tmp1 = myGrid.<a class="code" href="classGrid.html#afa91ba544fd3ea4329e14f9ff5001d4c">gNeighbor</a>[n];</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            len  = tmp1.size();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            tmp2.clear();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; len; i++) {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                <span class="keyword">const</span> <a class="code" href="classGB__Pair.html">GB_Pair</a>&amp; GBtmp2 = myGrid.<a class="code" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a>[tmp1[i].id];</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                <span class="keywordflow">if</span> (GBtmp2.<a class="code" href="classGB__Pair.html#a420ac8073c7c2ad65d65ebc0b418c985">IsAct</a>()) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                    tmp1[i].id = GBtmp2.<a class="code" href="classGB__Pair.html#a89469eb8092da8ccd1c8914bd4f1e808">GetId</a>();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    tmp2.push_back(tmp1[i]);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="comment">// Add Self</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            tmp2.push_back(<a class="code" href="classGPair.html">GPair</a>(bIdb, 0, 0.0, 0.0));</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <span class="comment">// Sort: Ascending</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            sort(tmp2.begin(), tmp2.end(), GPair::lessG);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="comment">// Find SelfPtr and Assign to neighbor and area</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            len = tmp2.size();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; len; i++) {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                <a class="code" href="classBulkConn.html#aa9fabc501208d98dd099fef2b51ff943">neighbor</a>[bIdb].push_back(tmp2[i].<span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                <span class="keywordflow">if</span> (tmp2[i].<span class="keywordtype">id</span> == bIdb) {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                    <a class="code" href="classBulkConn.html#a9fa771e98553c383ca6f289e69a76e05">selfPtr</a>[bIdb] = i;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = <a class="code" href="classBulkConn.html#a9fa771e98553c383ca6f289e69a76e05">selfPtr</a>[bIdb] + 1; j &lt; len; j++) {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>.push_back(<a class="code" href="classBulkPair.html">BulkPair</a>(bIdb, tmp2[j].<span class="keywordtype">id</span>, tmp2[j].direction,</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                                                tmp2[j].areaB, tmp2[j].areaE));</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <a class="code" href="classBulkConn.html#ae05d9064be69e11691e0d5a928927fbd">neighborNum</a>[bIdb] = len;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classBulkConn.html#aada61af0620060a623503dd8221bfb05">   24</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulkConn.html#aada61af0620060a623503dd8221bfb05">BulkConn::SetupIsoT</a>(<span class="keyword">const</span> <a class="code" href="classGrid.html">Grid</a>&amp; myGrid, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="classBulkConn.html#aa39281da12836639a2fe0aea4f39be1b">Setup</a>(myGrid);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="classBulkConn.html#a2f248c9e8b95a8fac0a4d2d4fd806b8f">CalAkd</a>(myBulk);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classBulkConn.html#aa39281da12836639a2fe0aea4f39be1b">   31</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulkConn.html#aa39281da12836639a2fe0aea4f39be1b">BulkConn::Setup</a>(<span class="keyword">const</span> <a class="code" href="classGrid.html">Grid</a>&amp; myGrid)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="classBulkConn.html#a023cb90f5cc887a0988572429ebded72">numConn</a> = 0;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="classBulkConn.html#a126be16e46215cf50c6f2a5d76878249">numBulk</a> = myGrid.<a class="code" href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">activeGridNum</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="classBulkConn.html#aa9fabc501208d98dd099fef2b51ff943">neighbor</a>.resize(<a class="code" href="classBulkConn.html#a126be16e46215cf50c6f2a5d76878249">numBulk</a>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="classBulkConn.html#a9fa771e98553c383ca6f289e69a76e05">selfPtr</a>.resize(<a class="code" href="classBulkConn.html#a126be16e46215cf50c6f2a5d76878249">numBulk</a>);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="classBulkConn.html#ae05d9064be69e11691e0d5a928927fbd">neighborNum</a>.resize(<a class="code" href="classBulkConn.html#a126be16e46215cf50c6f2a5d76878249">numBulk</a>);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    vector&lt;GPair&gt; tmp1, tmp2;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>           len;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>       bIdb;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; myGrid.<a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a>; n++) {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keyword">const</span> <a class="code" href="classGB__Pair.html">GB_Pair</a>&amp; GBtmp = myGrid.<a class="code" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a>[n];</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">if</span> (GBtmp.<a class="code" href="classGB__Pair.html#a420ac8073c7c2ad65d65ebc0b418c985">IsAct</a>()) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            bIdb = GBtmp.<a class="code" href="classGB__Pair.html#a89469eb8092da8ccd1c8914bd4f1e808">GetId</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="comment">// Get rid of inactive neighbor</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            tmp1 = myGrid.<a class="code" href="classGrid.html#afa91ba544fd3ea4329e14f9ff5001d4c">gNeighbor</a>[n];</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            len  = tmp1.size();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            tmp2.clear();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; len; i++) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                <span class="keyword">const</span> <a class="code" href="classGB__Pair.html">GB_Pair</a>&amp; GBtmp2 = myGrid.<a class="code" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a>[tmp1[i].id];</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                <span class="keywordflow">if</span> (GBtmp2.<a class="code" href="classGB__Pair.html#a420ac8073c7c2ad65d65ebc0b418c985">IsAct</a>()) {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                    tmp1[i].id = GBtmp2.<a class="code" href="classGB__Pair.html#a89469eb8092da8ccd1c8914bd4f1e808">GetId</a>();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                    tmp2.push_back(tmp1[i]);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="comment">// Add Self</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            tmp2.push_back(<a class="code" href="classGPair.html">GPair</a>(bIdb, 0, 0.0, 0.0));</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="comment">// Sort: Ascending</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            sort(tmp2.begin(), tmp2.end(), GPair::lessG);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <span class="comment">// Find SelfPtr and Assign to neighbor and area</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            len = tmp2.size();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; len; i++) {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                <a class="code" href="classBulkConn.html#aa9fabc501208d98dd099fef2b51ff943">neighbor</a>[bIdb].push_back(tmp2[i].<span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                <span class="keywordflow">if</span> (tmp2[i].<span class="keywordtype">id</span> == bIdb) {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                    <a class="code" href="classBulkConn.html#a9fa771e98553c383ca6f289e69a76e05">selfPtr</a>[bIdb] = i;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = <a class="code" href="classBulkConn.html#a9fa771e98553c383ca6f289e69a76e05">selfPtr</a>[bIdb] + 1; j &lt; len; j++) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>.push_back(<a class="code" href="classBulkPair.html">BulkPair</a>(bIdb, tmp2[j].<span class="keywordtype">id</span>, tmp2[j].direction,</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                                tmp2[j].areaB, tmp2[j].areaE));</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <a class="code" href="classBulkConn.html#ae05d9064be69e11691e0d5a928927fbd">neighborNum</a>[bIdb] = len;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="classBulkConn.html#a023cb90f5cc887a0988572429ebded72">numConn</a> = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>.size();</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <a class="code" href="classBulkConn.html#a023cb90f5cc887a0988572429ebded72">numConn</a> = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>.size();</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="comment">// PrintConnectionInfoCoor(myGrid);</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="classBulkConn.html#a2f248c9e8b95a8fac0a4d2d4fd806b8f">   92</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulkConn.html#a2f248c9e8b95a8fac0a4d2d4fd806b8f">BulkConn::CalAkd</a>(<span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;{</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId, eId;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> areaB, areaE;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> T1, T2;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> c = 0; c &lt; <a class="code" href="classBulkConn.html#a023cb90f5cc887a0988572429ebded72">numConn</a>; c++) {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        bId = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].bId;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        eId = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].eId;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        areaB = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].areaB;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        areaE = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].areaE;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">switch</span> (<a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].direction)</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        {</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordflow">case</span> 1:</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            T1 = myBulk.<a class="code" href="classBulk.html#a2878e49f087e7820d603176dcb607ce8">ntg</a>[bId] * myBulk.<a class="code" href="classBulk.html#aa0a730a21980f7e8ab387d5c56d63f33">rockKx</a>[bId] *  areaB;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            T2 = myBulk.<a class="code" href="classBulk.html#a2878e49f087e7820d603176dcb607ce8">ntg</a>[eId] * myBulk.<a class="code" href="classBulk.html#aa0a730a21980f7e8ab387d5c56d63f33">rockKx</a>[eId] *  areaE;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            T1 = myBulk.<a class="code" href="classBulk.html#a2878e49f087e7820d603176dcb607ce8">ntg</a>[bId] * myBulk.<a class="code" href="classBulk.html#aa9e33f14b470e2024450851f51e47ead">rockKy</a>[bId] *  areaB;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            T2 = myBulk.<a class="code" href="classBulk.html#a2878e49f087e7820d603176dcb607ce8">ntg</a>[eId] * myBulk.<a class="code" href="classBulk.html#aa9e33f14b470e2024450851f51e47ead">rockKy</a>[eId] *  areaE;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">case</span> 3:</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            T1 = myBulk.<a class="code" href="classBulk.html#a8efce460379ba6eee62919cfc0acf5de">rockKz</a>[bId] * areaB;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            T2 = myBulk.<a class="code" href="classBulk.html#a8efce460379ba6eee62919cfc0acf5de">rockKz</a>[eId] * areaE;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Direction!&quot;</span>);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].area = 1 / (1 / T1 + 1 / T2);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="classBulkConn.html#a96eae71eaa16dca2276b55f7290fa2fe">  124</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulkConn.html#a96eae71eaa16dca2276b55f7290fa2fe">BulkConn::PrintConnectionInfo</a>(<span class="keyword">const</span> <a class="code" href="classGrid.html">Grid</a>&amp; myGrid)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; <a class="code" href="classBulkConn.html#a126be16e46215cf50c6f2a5d76878249">numBulk</a>; i++) {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; myGrid.<a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>[i] &lt;&lt; <span class="stringliteral">&quot;)&quot;</span> &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; v : <a class="code" href="classBulkConn.html#aa9fabc501208d98dd099fef2b51ff943">neighbor</a>[i]) {</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            cout &lt;&lt; myGrid.<a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>[v] &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        }</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; <a class="code" href="classBulkConn.html#a9fa771e98553c383ca6f289e69a76e05">selfPtr</a>[i] &lt;&lt; <span class="stringliteral">&quot;]&quot;</span>;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; <a class="code" href="classBulkConn.html#ae05d9064be69e11691e0d5a928927fbd">neighborNum</a>[i];</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    }</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; <a class="code" href="classBulkConn.html#a023cb90f5cc887a0988572429ebded72">numConn</a>; i++) {</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        cout &lt;&lt; myGrid.<a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>[<a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[i].bId] &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;             &lt;&lt; myGrid.<a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>[<a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[i].eId] &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    }</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;}</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="keywordtype">void</span> BulkConn::PrintConnectionInfoCoor(<span class="keyword">const</span> <a class="code" href="classGrid.html">Grid</a>&amp; myGrid)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bIdg, eIdg;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bIdb, eIdb;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     I, J, K;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     sp = myGrid.<a class="code" href="classGrid.html#a5e0f6e0957d0a9a3bdea48e12b613b0c">GetNumDigitIJK</a>();</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;BulkConn : &quot;</span> &lt;&lt; <a class="code" href="classBulkConn.html#a023cb90f5cc887a0988572429ebded72">numConn</a> &lt;&lt; endl;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> c = 0; c &lt; <a class="code" href="classBulkConn.html#a023cb90f5cc887a0988572429ebded72">numConn</a>; c++) {</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        bIdb = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].bId;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        eIdb = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].eId;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        bIdg = myGrid.<a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>[bIdb];</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        eIdg = myGrid.<a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>[eIdb];</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        myGrid.GetIJKGrid(I, J, K, bIdg);</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        cout &lt;&lt; GetIJKformat(I, J, K, sp) &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        cout &lt;&lt; setw(6) &lt;&lt; bIdg;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;    &quot;</span>;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        cout &lt;&lt; setw(6) &lt;&lt; bIdb;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="comment">// PrintConnectionInfoCoor(myGrid);</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classBulkConn.html#a2f248c9e8b95a8fac0a4d2d4fd806b8f">   89</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulkConn.html#a2f248c9e8b95a8fac0a4d2d4fd806b8f">BulkConn::CalAkd</a>(<span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;{</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId, eId;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> areaB, areaE;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> T1, T2;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> c = 0; c &lt; <a class="code" href="classBulkConn.html#a023cb90f5cc887a0988572429ebded72">numConn</a>; c++) {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        bId   = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].bId;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        eId   = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].eId;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        areaB = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].areaB;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        areaE = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].areaE;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">switch</span> (<a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].direction) {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordflow">case</span> 1:</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                T1 = myBulk.<a class="code" href="classBulk.html#a2878e49f087e7820d603176dcb607ce8">ntg</a>[bId] * myBulk.<a class="code" href="classBulk.html#aa0a730a21980f7e8ab387d5c56d63f33">rockKx</a>[bId] * areaB;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                T2 = myBulk.<a class="code" href="classBulk.html#a2878e49f087e7820d603176dcb607ce8">ntg</a>[eId] * myBulk.<a class="code" href="classBulk.html#aa0a730a21980f7e8ab387d5c56d63f33">rockKx</a>[eId] * areaE;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordflow">case</span> 2:</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                T1 = myBulk.<a class="code" href="classBulk.html#a2878e49f087e7820d603176dcb607ce8">ntg</a>[bId] * myBulk.<a class="code" href="classBulk.html#aa9e33f14b470e2024450851f51e47ead">rockKy</a>[bId] * areaB;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                T2 = myBulk.<a class="code" href="classBulk.html#a2878e49f087e7820d603176dcb607ce8">ntg</a>[eId] * myBulk.<a class="code" href="classBulk.html#aa9e33f14b470e2024450851f51e47ead">rockKy</a>[eId] * areaE;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <span class="keywordflow">case</span> 3:</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                T1 = myBulk.<a class="code" href="classBulk.html#a8efce460379ba6eee62919cfc0acf5de">rockKz</a>[bId] * areaB;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                T2 = myBulk.<a class="code" href="classBulk.html#a8efce460379ba6eee62919cfc0acf5de">rockKz</a>[eId] * areaE;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Direction!&quot;</span>);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        }</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].area = 1 / (1 / T1 + 1 / T2);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    }</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="classBulkConn.html#a96eae71eaa16dca2276b55f7290fa2fe">  119</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulkConn.html#a96eae71eaa16dca2276b55f7290fa2fe">BulkConn::PrintConnectionInfo</a>(<span class="keyword">const</span> <a class="code" href="classGrid.html">Grid</a>&amp; myGrid)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; <a class="code" href="classBulkConn.html#a126be16e46215cf50c6f2a5d76878249">numBulk</a>; i++) {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; myGrid.<a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>[i] &lt;&lt; <span class="stringliteral">&quot;)&quot;</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; v : <a class="code" href="classBulkConn.html#aa9fabc501208d98dd099fef2b51ff943">neighbor</a>[i]) {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            cout &lt;&lt; myGrid.<a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>[v] &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        }</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; <a class="code" href="classBulkConn.html#a9fa771e98553c383ca6f289e69a76e05">selfPtr</a>[i] &lt;&lt; <span class="stringliteral">&quot;]&quot;</span>;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; <a class="code" href="classBulkConn.html#ae05d9064be69e11691e0d5a928927fbd">neighborNum</a>[i];</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; <a class="code" href="classBulkConn.html#a023cb90f5cc887a0988572429ebded72">numConn</a>; i++) {</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        cout &lt;&lt; myGrid.<a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>[<a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[i].bId] &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;             &lt;&lt; myGrid.<a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>[<a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[i].eId] &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    }</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;}</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="keywordtype">void</span> BulkConn::PrintConnectionInfoCoor(<span class="keyword">const</span> <a class="code" href="classGrid.html">Grid</a>&amp; myGrid)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bIdg, eIdg;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bIdb, eIdb;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     I, J, K;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     sp = myGrid.<a class="code" href="classGrid.html#a5e0f6e0957d0a9a3bdea48e12b613b0c">GetNumDigitIJK</a>();</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;BulkConn : &quot;</span> &lt;&lt; <a class="code" href="classBulkConn.html#a023cb90f5cc887a0988572429ebded72">numConn</a> &lt;&lt; endl;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> c = 0; c &lt; <a class="code" href="classBulkConn.html#a023cb90f5cc887a0988572429ebded72">numConn</a>; c++) {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        bIdb = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].bId;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        eIdb = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].eId;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        bIdg = myGrid.<a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>[bIdb];</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        eIdg = myGrid.<a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>[eIdb];</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        myGrid.GetIJKGrid(I, J, K, bIdg);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        cout &lt;&lt; GetIJKformat(I, J, K, sp) &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        cout &lt;&lt; setw(6) &lt;&lt; bIdg;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;    &quot;</span>;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        cout &lt;&lt; setw(6) &lt;&lt; bIdb;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;    &quot;</span>;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        myGrid.GetIJKGrid(I, J, K, eIdg);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        cout &lt;&lt; GetIJKformat(I, J, K, sp) &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        cout &lt;&lt; setw(6) &lt;&lt; eIdg;</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;    &quot;</span>;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        myGrid.GetIJKGrid(I, J, K, eIdg);</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        cout &lt;&lt; GetIJKformat(I, J, K, sp) &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        cout &lt;&lt; setw(6) &lt;&lt; eIdg;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;    &quot;</span>;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        cout &lt;&lt; setw(6) &lt;&lt; eIdb;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        cout &lt;&lt; setw(20) &lt;&lt; setprecision(8) &lt;&lt; fixed &lt;&lt; <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].area * <a class="code" href="OCPConst_8hpp.html#afa282da104aab8f046a09e9dffb6f680">CONV2</a>;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        cout &lt;&lt; setw(6) &lt;&lt; eIdb;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        cout &lt;&lt; setw(20) &lt;&lt; setprecision(8) &lt;&lt; fixed &lt;&lt; <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].area * <a class="code" href="OCPConst_8hpp.html#afa282da104aab8f046a09e9dffb6f680">CONV2</a>;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    }</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;}</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        cout &lt;&lt; endl;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    }</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;}</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="classBulkConn.html#a1b96cc61d84757c90fe25028031d658b">  169</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulkConn.html#a1b96cc61d84757c90fe25028031d658b">BulkConn::CalFluxFIMS</a>(<span class="keyword">const</span> <a class="code" href="classGrid.html">Grid</a>&amp; myGrid, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;{</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="classBulkConn.html#a1b96cc61d84757c90fe25028031d658b">  174</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulkConn.html#a1b96cc61d84757c90fe25028031d658b">BulkConn::CalFluxFIMS</a>(<span class="keyword">const</span> <a class="code" href="classGrid.html">Grid</a>&amp; myGrid, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;{</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> np = myBulk.<a class="code" href="classBulk.html#a13282217b32c21b418f596ff9219b36f">numPhase</a>;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>   bId, eId, uId;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>   bId_np_j, eId_np_j;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>   Pbegin, Pend, rho;</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> np = myBulk.<a class="code" href="classBulk.html#a13282217b32c21b418f596ff9219b36f">numPhase</a>;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>   bId, eId, uId;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>   bId_np_j, eId_np_j;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>   Pbegin, Pend, rho;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> c = 0; c &lt; <a class="code" href="classBulkConn.html#a023cb90f5cc887a0988572429ebded72">numConn</a>; c++) {</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        bId = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].bId;</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        eId = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].eId;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; np; j++) {</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            bId_np_j = bId * np + j;</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            eId_np_j = eId * np + j;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> exbegin = myBulk.<a class="code" href="classBulk.html#a786872aefa936f6027d2fb36ea37e083">phaseExist</a>[bId_np_j];</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> exend   = myBulk.<a class="code" href="classBulk.html#a786872aefa936f6027d2fb36ea37e083">phaseExist</a>[eId_np_j];</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            <span class="keywordflow">if</span> ((exbegin) &amp;&amp; (exend)) {</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                rho = (myBulk.<a class="code" href="classBulk.html#a1dadcf0fdb08d2493ccbddc6ecb9fbff">rho</a>[bId_np_j] * myBulk.<a class="code" href="classBulk.html#a18bfc19276561fba74e4831920c34e78">S</a>[bId_np_j] +</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                       myBulk.<a class="code" href="classBulk.html#a1dadcf0fdb08d2493ccbddc6ecb9fbff">rho</a>[eId_np_j] * myBulk.<a class="code" href="classBulk.html#a18bfc19276561fba74e4831920c34e78">S</a>[eId_np_j]) /</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                      (myBulk.<a class="code" href="classBulk.html#a18bfc19276561fba74e4831920c34e78">S</a>[bId_np_j] + myBulk.<a class="code" href="classBulk.html#a18bfc19276561fba74e4831920c34e78">S</a>[eId_np_j]);</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (exbegin &amp;&amp; (!exend)) {</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                rho = myBulk.<a class="code" href="classBulk.html#a1dadcf0fdb08d2493ccbddc6ecb9fbff">rho</a>[bId_np_j];</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!exbegin) &amp;&amp; (exend)) {</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                rho = myBulk.<a class="code" href="classBulk.html#a1dadcf0fdb08d2493ccbddc6ecb9fbff">rho</a>[eId_np_j];</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;                <a class="code" href="classBulkConn.html#a0731e7d4c9159500de7e9034b023eeb2">upblock</a>[c * np + j]     = bId;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;                <a class="code" href="classBulkConn.html#a117665e0f751f8f57221dbe9d674c7eb">upblock_Rho</a>[c * np + j] = 0;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            }</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            Pbegin     = myBulk.<a class="code" href="classBulk.html#a3df6a922aa39daaece7d3baf5ccc498e">Pj</a>[bId_np_j];</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            Pend       = myBulk.<a class="code" href="classBulk.html#a3df6a922aa39daaece7d3baf5ccc498e">Pj</a>[eId_np_j];</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            uId        = bId;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dP = (Pbegin - <a class="code" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * rho * myBulk.<a class="code" href="classBulk.html#a38df5d830409b5302da2a39d31dbb298">depth</a>[bId]) -</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                         (Pend - <a class="code" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * rho * myBulk.<a class="code" href="classBulk.html#a38df5d830409b5302da2a39d31dbb298">depth</a>[eId]);</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            <span class="keywordflow">if</span> (dP &lt; 0) {</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;                uId = eId;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            }</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            <a class="code" href="classBulkConn.html#a0731e7d4c9159500de7e9034b023eeb2">upblock</a>[c * np + j]     = uId;</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            <a class="code" href="classBulkConn.html#a117665e0f751f8f57221dbe9d674c7eb">upblock_Rho</a>[c * np + j] = rho;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        }</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    }</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;}</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;<span class="keywordtype">void</span> BulkConn::CalResFIMS(vector&lt;OCP_DBL&gt;&amp; res, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;{</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> c = 0; c &lt; <a class="code" href="classBulkConn.html#a023cb90f5cc887a0988572429ebded72">numConn</a>; c++) {</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        bId = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].bId;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        eId = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].eId;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; np; j++) {</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            bId_np_j = bId * np + j;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            eId_np_j = eId * np + j;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> exbegin = myBulk.<a class="code" href="classBulk.html#a786872aefa936f6027d2fb36ea37e083">phaseExist</a>[bId_np_j];</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;            <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> exend   = myBulk.<a class="code" href="classBulk.html#a786872aefa936f6027d2fb36ea37e083">phaseExist</a>[eId_np_j];</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            <span class="keywordflow">if</span> ((exbegin) &amp;&amp; (exend)) {</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                rho = (myBulk.<a class="code" href="classBulk.html#a1dadcf0fdb08d2493ccbddc6ecb9fbff">rho</a>[bId_np_j] * myBulk.<a class="code" href="classBulk.html#a18bfc19276561fba74e4831920c34e78">S</a>[bId_np_j] +</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                       myBulk.<a class="code" href="classBulk.html#a1dadcf0fdb08d2493ccbddc6ecb9fbff">rho</a>[eId_np_j] * myBulk.<a class="code" href="classBulk.html#a18bfc19276561fba74e4831920c34e78">S</a>[eId_np_j]) /</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                      (myBulk.<a class="code" href="classBulk.html#a18bfc19276561fba74e4831920c34e78">S</a>[bId_np_j] + myBulk.<a class="code" href="classBulk.html#a18bfc19276561fba74e4831920c34e78">S</a>[eId_np_j]);</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (exbegin &amp;&amp; (!exend)) {</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                rho = myBulk.<a class="code" href="classBulk.html#a1dadcf0fdb08d2493ccbddc6ecb9fbff">rho</a>[bId_np_j];</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!exbegin) &amp;&amp; (exend)) {</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                rho = myBulk.<a class="code" href="classBulk.html#a1dadcf0fdb08d2493ccbddc6ecb9fbff">rho</a>[eId_np_j];</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                <a class="code" href="classBulkConn.html#a0731e7d4c9159500de7e9034b023eeb2">upblock</a>[c * np + j]     = bId;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                <a class="code" href="classBulkConn.html#a117665e0f751f8f57221dbe9d674c7eb">upblock_Rho</a>[c * np + j] = 0;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;            }</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            Pbegin     = myBulk.<a class="code" href="classBulk.html#a3df6a922aa39daaece7d3baf5ccc498e">Pj</a>[bId_np_j];</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            Pend       = myBulk.<a class="code" href="classBulk.html#a3df6a922aa39daaece7d3baf5ccc498e">Pj</a>[eId_np_j];</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;            uId        = bId;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dP = (Pbegin - <a class="code" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * rho * myBulk.<a class="code" href="classBulk.html#a38df5d830409b5302da2a39d31dbb298">depth</a>[bId]) -</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                         (Pend - <a class="code" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * rho * myBulk.<a class="code" href="classBulk.html#a38df5d830409b5302da2a39d31dbb298">depth</a>[eId]);</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            <span class="keywordflow">if</span> (dP &lt; 0) {</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                uId = eId;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            }</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            <a class="code" href="classBulkConn.html#a0731e7d4c9159500de7e9034b023eeb2">upblock</a>[c * np + j]     = uId;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;            <a class="code" href="classBulkConn.html#a117665e0f751f8f57221dbe9d674c7eb">upblock_Rho</a>[c * np + j] = rho;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        }</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    }</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;}</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="keywordtype">void</span> BulkConn::CalResFIMS(vector&lt;OCP_DBL&gt;&amp; res, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;{</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> np  = myBulk.<a class="code" href="classBulk.html#a13282217b32c21b418f596ff9219b36f">numPhase</a>;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> nc  = myBulk.<a class="code" href="classBulk.html#af5e614719474eb37a67dc164e31abbe5">numCom</a>;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> len = nc + 1;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>   bId, eId, uId, bIdb;</div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> np  = myBulk.<a class="code" href="classBulk.html#a13282217b32c21b418f596ff9219b36f">numPhase</a>;</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> nc  = myBulk.<a class="code" href="classBulk.html#af5e614719474eb37a67dc164e31abbe5">numCom</a>;</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> len = nc + 1;</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>   bId, eId, uId, bIdb;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="comment">// Accumalation Term</span></div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; <a class="code" href="classBulkConn.html#a126be16e46215cf50c6f2a5d76878249">numBulk</a>; n++) {</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        bId  = n * len;</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        bIdb = n * nc;</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        res[bId] = myBulk.<a class="code" href="classBulk.html#a3aac78c4fa9a63bfeb573ce64b4c825f">rockVp</a>[n] - myBulk.<a class="code" href="classBulk.html#a8e67ad12a9f5fd4508792dda68e7c6a7">vf</a>[n];</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;            res[bId + 1 + i] = myBulk.<a class="code" href="classBulk.html#a3af2613e589ca33da50fb321a38edc04">Ni</a>[bIdb + i] - myBulk.<a class="code" href="classBulk.html#aec7894e2e162f7ebf8270869c2b449ff">lNi</a>[bIdb + i];</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        }</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    }</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId_np_j, eId_np_j, uId_np_j;</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pbegin, Pend, rho, dP;</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> tmp, dNi;</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Akd;</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    <span class="comment">// Flux Term</span></div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <span class="comment">// Calculate the upblock at the same time.</span></div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> c = 0; c &lt; <a class="code" href="classBulkConn.html#a023cb90f5cc887a0988572429ebded72">numConn</a>; c++) {</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        bId = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].bId;</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        eId = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].eId;</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        Akd = <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * <a class="code" href="OCPConst_8hpp.html#afa282da104aab8f046a09e9dffb6f680">CONV2</a> * <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].area;</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; np; j++) {</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;            bId_np_j = bId * np + j;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            eId_np_j = eId * np + j;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;            <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> exbegin = myBulk.<a class="code" href="classBulk.html#a786872aefa936f6027d2fb36ea37e083">phaseExist</a>[bId_np_j];</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> exend   = myBulk.<a class="code" href="classBulk.html#a786872aefa936f6027d2fb36ea37e083">phaseExist</a>[eId_np_j];</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            <span class="keywordflow">if</span> ((exbegin) &amp;&amp; (exend)) {</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                rho = (myBulk.<a class="code" href="classBulk.html#a1dadcf0fdb08d2493ccbddc6ecb9fbff">rho</a>[bId_np_j] * myBulk.<a class="code" href="classBulk.html#a18bfc19276561fba74e4831920c34e78">S</a>[bId_np_j] +</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                       myBulk.<a class="code" href="classBulk.html#a1dadcf0fdb08d2493ccbddc6ecb9fbff">rho</a>[eId_np_j] * myBulk.<a class="code" href="classBulk.html#a18bfc19276561fba74e4831920c34e78">S</a>[eId_np_j]) /</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;                      (myBulk.<a class="code" href="classBulk.html#a18bfc19276561fba74e4831920c34e78">S</a>[bId_np_j] + myBulk.<a class="code" href="classBulk.html#a18bfc19276561fba74e4831920c34e78">S</a>[eId_np_j]);</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (exbegin &amp;&amp; (!exend)) {</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                rho = myBulk.<a class="code" href="classBulk.html#a1dadcf0fdb08d2493ccbddc6ecb9fbff">rho</a>[bId_np_j];</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!exbegin) &amp;&amp; (exend)) {</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                rho = myBulk.<a class="code" href="classBulk.html#a1dadcf0fdb08d2493ccbddc6ecb9fbff">rho</a>[eId_np_j];</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                <a class="code" href="classBulkConn.html#a0731e7d4c9159500de7e9034b023eeb2">upblock</a>[c * np + j]     = bId;</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                <a class="code" href="classBulkConn.html#a117665e0f751f8f57221dbe9d674c7eb">upblock_Rho</a>[c * np + j] = 0;</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;            }</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;            Pbegin = myBulk.<a class="code" href="classBulk.html#a3df6a922aa39daaece7d3baf5ccc498e">Pj</a>[bId_np_j];</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;            Pend   = myBulk.<a class="code" href="classBulk.html#a3df6a922aa39daaece7d3baf5ccc498e">Pj</a>[eId_np_j];</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;            uId    = bId;</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;            dP     = (Pbegin - <a class="code" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * rho * myBulk.<a class="code" href="classBulk.html#a38df5d830409b5302da2a39d31dbb298">depth</a>[bId]) -</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                 (Pend - <a class="code" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * rho * myBulk.<a class="code" href="classBulk.html#a38df5d830409b5302da2a39d31dbb298">depth</a>[eId]);</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;            <span class="keywordflow">if</span> (dP &lt; 0) {</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;                uId = eId;</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;            }</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;            <a class="code" href="classBulkConn.html#a117665e0f751f8f57221dbe9d674c7eb">upblock_Rho</a>[c * np + j] = rho;</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;            <a class="code" href="classBulkConn.html#a0731e7d4c9159500de7e9034b023eeb2">upblock</a>[c * np + j]     = uId;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="comment">// Accumalation Term</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; <a class="code" href="classBulkConn.html#a126be16e46215cf50c6f2a5d76878249">numBulk</a>; n++) {</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        bId  = n * len;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        bIdb = n * nc;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        res[bId] = myBulk.<a class="code" href="classBulk.html#a3aac78c4fa9a63bfeb573ce64b4c825f">rockVp</a>[n] - myBulk.<a class="code" href="classBulk.html#a8e67ad12a9f5fd4508792dda68e7c6a7">vf</a>[n];</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            res[bId + 1 + i] = myBulk.<a class="code" href="classBulk.html#a3af2613e589ca33da50fb321a38edc04">Ni</a>[bIdb + i] - myBulk.<a class="code" href="classBulk.html#aec7894e2e162f7ebf8270869c2b449ff">lNi</a>[bIdb + i];</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        }</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    }</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId_np_j, eId_np_j, uId_np_j;</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pbegin, Pend, rho, dP;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> tmp, dNi;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Akd;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="comment">// Flux Term</span></div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="comment">// Calculate the upblock at the same time.</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> c = 0; c &lt; <a class="code" href="classBulkConn.html#a023cb90f5cc887a0988572429ebded72">numConn</a>; c++) {</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        bId = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].bId;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        eId = <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].eId;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        Akd = <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * <a class="code" href="OCPConst_8hpp.html#afa282da104aab8f046a09e9dffb6f680">CONV2</a> * <a class="code" href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">iteratorConn</a>[c].area;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; np; j++) {</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;            bId_np_j = bId * np + j;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            eId_np_j = eId * np + j;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;            <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> exbegin = myBulk.<a class="code" href="classBulk.html#a786872aefa936f6027d2fb36ea37e083">phaseExist</a>[bId_np_j];</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> exend   = myBulk.<a class="code" href="classBulk.html#a786872aefa936f6027d2fb36ea37e083">phaseExist</a>[eId_np_j];</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160; </div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            <span class="keywordflow">if</span> ((exbegin) &amp;&amp; (exend)) {</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                rho = (myBulk.<a class="code" href="classBulk.html#a1dadcf0fdb08d2493ccbddc6ecb9fbff">rho</a>[bId_np_j] * myBulk.<a class="code" href="classBulk.html#a18bfc19276561fba74e4831920c34e78">S</a>[bId_np_j] +</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                       myBulk.<a class="code" href="classBulk.html#a1dadcf0fdb08d2493ccbddc6ecb9fbff">rho</a>[eId_np_j] * myBulk.<a class="code" href="classBulk.html#a18bfc19276561fba74e4831920c34e78">S</a>[eId_np_j]) /</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                      (myBulk.<a class="code" href="classBulk.html#a18bfc19276561fba74e4831920c34e78">S</a>[bId_np_j] + myBulk.<a class="code" href="classBulk.html#a18bfc19276561fba74e4831920c34e78">S</a>[eId_np_j]);</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (exbegin &amp;&amp; (!exend)) {</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;                rho = myBulk.<a class="code" href="classBulk.html#a1dadcf0fdb08d2493ccbddc6ecb9fbff">rho</a>[bId_np_j];</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!exbegin) &amp;&amp; (exend)) {</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                rho = myBulk.<a class="code" href="classBulk.html#a1dadcf0fdb08d2493ccbddc6ecb9fbff">rho</a>[eId_np_j];</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                <a class="code" href="classBulkConn.html#a0731e7d4c9159500de7e9034b023eeb2">upblock</a>[c * np + j]     = bId;</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                <a class="code" href="classBulkConn.html#a117665e0f751f8f57221dbe9d674c7eb">upblock_Rho</a>[c * np + j] = 0;</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            }</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            Pbegin = myBulk.<a class="code" href="classBulk.html#a3df6a922aa39daaece7d3baf5ccc498e">Pj</a>[bId_np_j];</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;            Pend   = myBulk.<a class="code" href="classBulk.html#a3df6a922aa39daaece7d3baf5ccc498e">Pj</a>[eId_np_j];</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;            uId    = bId;</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;            dP     = (Pbegin - <a class="code" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * rho * myBulk.<a class="code" href="classBulk.html#a38df5d830409b5302da2a39d31dbb298">depth</a>[bId]) -</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                 (Pend - <a class="code" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * rho * myBulk.<a class="code" href="classBulk.html#a38df5d830409b5302da2a39d31dbb298">depth</a>[eId]);</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;            <span class="keywordflow">if</span> (dP &lt; 0) {</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                uId = eId;</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;            }</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;            <a class="code" href="classBulkConn.html#a117665e0f751f8f57221dbe9d674c7eb">upblock_Rho</a>[c * np + j] = rho;</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;            <a class="code" href="classBulkConn.html#a0731e7d4c9159500de7e9034b023eeb2">upblock</a>[c * np + j]     = uId;</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160; </div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;            uId_np_j = uId * np + j;</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;            <span class="keywordflow">if</span> (!myBulk.<a class="code" href="classBulk.html#a786872aefa936f6027d2fb36ea37e083">phaseExist</a>[uId_np_j]) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;            tmp = dt * Akd * myBulk.<a class="code" href="classBulk.html#a8ac044cfe47e68dc54d8859acc51f8a1">xi</a>[uId_np_j] * myBulk.<a class="code" href="classBulk.html#a37a8fcd29b192d54233eef63a1f530be">kr</a>[uId_np_j] /</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;                  myBulk.<a class="code" href="classBulk.html#a01543927112e76ac72b52e851ea93e8a">mu</a>[uId_np_j] * dP;</div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160; </div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;            uId_np_j = uId * np + j;</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;            <span class="keywordflow">if</span> (!myBulk.<a class="code" href="classBulk.html#a786872aefa936f6027d2fb36ea37e083">phaseExist</a>[uId_np_j]) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;            tmp = dt * Akd * myBulk.<a class="code" href="classBulk.html#a8ac044cfe47e68dc54d8859acc51f8a1">xi</a>[uId_np_j] * myBulk.<a class="code" href="classBulk.html#a37a8fcd29b192d54233eef63a1f530be">kr</a>[uId_np_j] /</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;                  myBulk.<a class="code" href="classBulk.html#a01543927112e76ac72b52e851ea93e8a">mu</a>[uId_np_j] * dP;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;                dNi = tmp * myBulk.<a class="code" href="classBulk.html#a363407f7ea6ecdef3555e8f92e90c867">xij</a>[uId_np_j * nc + i];</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;                res[bId * len + 1 + i] += dNi;</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;                res[eId * len + 1 + i] -= dNi;</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;            }</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        }</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    }</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;}</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160; </div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;                dNi = tmp * myBulk.<a class="code" href="classBulk.html#a363407f7ea6ecdef3555e8f92e90c867">xij</a>[uId_np_j * nc + i];</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;                res[bId * len + 1 + i] += dNi;</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;                res[eId * len + 1 + i] -= dNi;</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;            }</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        }</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    }</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;}</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aBulkConn_8hpp_html"><div class="ttname"><a href="BulkConn_8hpp.html">BulkConn.hpp</a></div><div class="ttdoc">BulkConn class declaration.</div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00027">OCPConst.hpp:27</a></div></div>
@@ -379,13 +374,13 @@ $(function() {
 <div class="ttc" id="aclassBulkConn_html_a0731e7d4c9159500de7e9034b023eeb2"><div class="ttname"><a href="classBulkConn.html#a0731e7d4c9159500de7e9034b023eeb2">BulkConn::upblock</a></div><div class="ttdeci">vector&lt; OCP_USI &gt; upblock</div><div class="ttdoc">Index of upwinding bulk of connections : numConn * numPhase.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00133">BulkConn.hpp:133</a></div></div>
 <div class="ttc" id="aclassBulkConn_html_a117665e0f751f8f57221dbe9d674c7eb"><div class="ttname"><a href="classBulkConn.html#a117665e0f751f8f57221dbe9d674c7eb">BulkConn::upblock_Rho</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; upblock_Rho</div><div class="ttdoc">Mass density of phase from upblock: numConn * numPhase.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00135">BulkConn.hpp:135</a></div></div>
 <div class="ttc" id="aclassBulkConn_html_a126be16e46215cf50c6f2a5d76878249"><div class="ttname"><a href="classBulkConn.html#a126be16e46215cf50c6f2a5d76878249">BulkConn::numBulk</a></div><div class="ttdeci">OCP_USI numBulk</div><div class="ttdoc">Number of bulks (active grid cells).</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00107">BulkConn.hpp:107</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_a1b96cc61d84757c90fe25028031d658b"><div class="ttname"><a href="classBulkConn.html#a1b96cc61d84757c90fe25028031d658b">BulkConn::CalFluxFIMS</a></div><div class="ttdeci">void CalFluxFIMS(const Grid &amp;myGrid, const Bulk &amp;myBulk)</div><div class="ttdoc">rho = (S1*rho1 + S2*rho2)/(S1+S2)</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00174">BulkConn.cpp:174</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_a2f248c9e8b95a8fac0a4d2d4fd806b8f"><div class="ttname"><a href="classBulkConn.html#a2f248c9e8b95a8fac0a4d2d4fd806b8f">BulkConn::CalAkd</a></div><div class="ttdeci">void CalAkd(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate the effective area used for flow.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00092">BulkConn.cpp:92</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_a96eae71eaa16dca2276b55f7290fa2fe"><div class="ttname"><a href="classBulkConn.html#a96eae71eaa16dca2276b55f7290fa2fe">BulkConn::PrintConnectionInfo</a></div><div class="ttdeci">void PrintConnectionInfo(const Grid &amp;myGrid) const</div><div class="ttdoc">Print information of connections on screen.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00124">BulkConn.cpp:124</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_a1b96cc61d84757c90fe25028031d658b"><div class="ttname"><a href="classBulkConn.html#a1b96cc61d84757c90fe25028031d658b">BulkConn::CalFluxFIMS</a></div><div class="ttdeci">void CalFluxFIMS(const Grid &amp;myGrid, const Bulk &amp;myBulk)</div><div class="ttdoc">rho = (S1*rho1 + S2*rho2)/(S1+S2)</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00169">BulkConn.cpp:169</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_a2f248c9e8b95a8fac0a4d2d4fd806b8f"><div class="ttname"><a href="classBulkConn.html#a2f248c9e8b95a8fac0a4d2d4fd806b8f">BulkConn::CalAkd</a></div><div class="ttdeci">void CalAkd(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate the effective area used for flow.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00089">BulkConn.cpp:89</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_a96eae71eaa16dca2276b55f7290fa2fe"><div class="ttname"><a href="classBulkConn.html#a96eae71eaa16dca2276b55f7290fa2fe">BulkConn::PrintConnectionInfo</a></div><div class="ttdeci">void PrintConnectionInfo(const Grid &amp;myGrid) const</div><div class="ttdoc">Print information of connections on screen.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00119">BulkConn.cpp:119</a></div></div>
 <div class="ttc" id="aclassBulkConn_html_a9fa771e98553c383ca6f289e69a76e05"><div class="ttname"><a href="classBulkConn.html#a9fa771e98553c383ca6f289e69a76e05">BulkConn::selfPtr</a></div><div class="ttdeci">vector&lt; USI &gt; selfPtr</div><div class="ttdoc">Self-pointer, the indices of the i-th bulk in neighbor[i]: numBulk.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00116">BulkConn.hpp:116</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_aa39281da12836639a2fe0aea4f39be1b"><div class="ttname"><a href="classBulkConn.html#aa39281da12836639a2fe0aea4f39be1b">BulkConn::Setup</a></div><div class="ttdeci">void Setup(const Grid &amp;myGrid)</div><div class="ttdoc">It should be called after Grid and Bulk Setup.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00033">BulkConn.cpp:33</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_aa39281da12836639a2fe0aea4f39be1b"><div class="ttname"><a href="classBulkConn.html#aa39281da12836639a2fe0aea4f39be1b">BulkConn::Setup</a></div><div class="ttdeci">void Setup(const Grid &amp;myGrid)</div><div class="ttdoc">It should be called after Grid and Bulk Setup.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00031">BulkConn.cpp:31</a></div></div>
 <div class="ttc" id="aclassBulkConn_html_aa9fabc501208d98dd099fef2b51ff943"><div class="ttname"><a href="classBulkConn.html#aa9fabc501208d98dd099fef2b51ff943">BulkConn::neighbor</a></div><div class="ttdeci">vector&lt; vector&lt; OCP_USI &gt; &gt; neighbor</div><div class="ttdoc">Neighboring information of each bulk: activeGridNum.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00113">BulkConn.hpp:113</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_aada61af0620060a623503dd8221bfb05"><div class="ttname"><a href="classBulkConn.html#aada61af0620060a623503dd8221bfb05">BulkConn::SetupIsoT</a></div><div class="ttdeci">void SetupIsoT(const Grid &amp;myGrid, const Bulk &amp;myBulk)</div><div class="ttdoc">Setup active connections.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00025">BulkConn.cpp:25</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_aada61af0620060a623503dd8221bfb05"><div class="ttname"><a href="classBulkConn.html#aada61af0620060a623503dd8221bfb05">BulkConn::SetupIsoT</a></div><div class="ttdeci">void SetupIsoT(const Grid &amp;myGrid, const Bulk &amp;myBulk)</div><div class="ttdoc">Setup active connections.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00024">BulkConn.cpp:24</a></div></div>
 <div class="ttc" id="aclassBulkConn_html_ad5bc8a85a9dac0573b4e4b49861abd45"><div class="ttname"><a href="classBulkConn.html#ad5bc8a85a9dac0573b4e4b49861abd45">BulkConn::iteratorConn</a></div><div class="ttdeci">vector&lt; BulkPair &gt; iteratorConn</div><div class="ttdoc">All connections (pair of indices) between bulks: numConn.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00124">BulkConn.hpp:124</a></div></div>
 <div class="ttc" id="aclassBulkConn_html_ae05d9064be69e11691e0d5a928927fbd"><div class="ttname"><a href="classBulkConn.html#ae05d9064be69e11691e0d5a928927fbd">BulkConn::neighborNum</a></div><div class="ttdeci">vector&lt; USI &gt; neighborNum</div><div class="ttdoc">Number of neighbors of the i-th bulk: numBulk, self-included.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00119">BulkConn.hpp:119</a></div></div>
 <div class="ttc" id="aclassBulkPair_html"><div class="ttname"><a href="classBulkPair.html">BulkPair</a></div><div class="ttdoc">Connection between two bulks (bId, eId); usually, indices bId &gt; eId.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00029">BulkConn.hpp:30</a></div></div>
@@ -423,7 +418,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 5 2023 08:28:20 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Feb 5 2023 08:32:03 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

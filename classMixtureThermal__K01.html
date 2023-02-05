@@ -596,48 +596,45 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 
 <p>Implements <a class="el" href="classMixture.html#a222c158186f99ce5ee61e16da312108e">Mixture</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureThermal__k_8cpp_source.html#l00564">564</a> of file <a class="el" href="MixtureThermal__k_8cpp_source.html">MixtureThermal_k.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;{</div>
-<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> wellType = opt.WellType();</div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;    <span class="keywordflow">if</span> (wellType == <a class="code" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>) {</div>
-<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">string</span>    fluidName = opt.InjFluidType();</div>
-<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;        vector&lt;OCP_DBL&gt; tmpZi(<a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>, 0);</div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;        <span class="keywordflow">if</span> (fluidName == <span class="stringliteral">&quot;WAT&quot;</span>) {</div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;            tmpZi.back() = 1;</div>
-<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;            opt.SetInjProdPhase(<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>);</div>
-<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;            <span class="comment">// lbmol / ft3 -&gt; lbmol  / bbl  for</span></div>
-<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;            <span class="comment">// injfluid Use flash in Bulk in surface condition</span></div>
-<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;            <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> tmp = <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * <a class="code" href="classMixtureThermal__K01.html#aaefe648b18a6b13d0732fa54e75da1c8">XiPhase</a>(Psurf, Tsurf, &amp;tmpZi[0], <a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>);</div>
-<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;            opt.SetInjFactor(tmp);</div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;        }</div>
-<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;WRONG Fluid Type!&quot;</span>);</div>
-<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;        }</div>
-<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;        opt.SetInjZi(tmpZi);</div>
-<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;    }</div>
-<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (wellType == <a class="code" href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a>) {</div>
+<p class="definition">Definition at line <a class="el" href="MixtureThermal__k_8cpp_source.html#l00566">566</a> of file <a class="el" href="MixtureThermal__k_8cpp_source.html">MixtureThermal_k.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;{</div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> wellType = opt.WellType();</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;    <span class="keywordflow">if</span> (wellType == <a class="code" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>) {</div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">string</span>    fluidName = opt.InjFluidType();</div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;        vector&lt;OCP_DBL&gt; tmpZi(<a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>, 0);</div>
+<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;        <span class="keywordflow">if</span> (fluidName == <span class="stringliteral">&quot;WAT&quot;</span>) {</div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;            tmpZi.back() = 1;</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;            opt.SetInjProdPhase(<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>);</div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;            <span class="comment">// lbmol / ft3 -&gt; lbmol  / bbl  for</span></div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;            <span class="comment">// injfluid Use flash in Bulk in surface condition</span></div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;            <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> tmp = <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * <a class="code" href="classMixtureThermal__K01.html#aaefe648b18a6b13d0732fa54e75da1c8">XiPhase</a>(Psurf, Tsurf, &amp;tmpZi[0], <a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>);</div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;            opt.SetInjFactor(tmp);</div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;WRONG Fluid Type!&quot;</span>);</div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;        }</div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;        opt.SetInjZi(tmpZi);</div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (wellType == <a class="code" href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a>) {</div>
 <div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;        vector&lt;OCP_DBL&gt; tmpWght(<a class="code" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>, 0);</div>
 <div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;        <span class="keywordflow">switch</span> (opt.OptMode()) {</div>
-<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a6bc5e2a2d158c83db657edc1dcfeb723">ORATE_MODE</a>:</div>
-<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;            tmpWght[0] = 1;</div>
-<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a36e159b6de59020f171c2cef277108e8">WRATE_MODE</a>:</div>
-<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;            tmpWght[1] = 1;</div>
-<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a3615008dac3cda340c4587ef1622ca74">LRATE_MODE</a>:</div>
-<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;            tmpWght[0] = 1;</div>
-<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;            tmpWght[1] = 1;</div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;        <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;WRONG optMode&quot;</span>);</div>
-<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a6bc5e2a2d158c83db657edc1dcfeb723">ORATE_MODE</a>:</div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;                tmpWght[0] = 1;</div>
+<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a36e159b6de59020f171c2cef277108e8">WRATE_MODE</a>:</div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;                tmpWght[1] = 1;</div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a3615008dac3cda340c4587ef1622ca74">LRATE_MODE</a>:</div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;                tmpWght[0] = 1;</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;                tmpWght[1] = 1;</div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;            <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;WRONG optMode&quot;</span>);</div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;                <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;        }</div>
 <div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;        opt.SetProdPhaseWeight(tmpWght);</div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;    }</div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Well Type!&quot;</span>);</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;    }</div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;}</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Well Type!&quot;</span>);</div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;    }</div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00027">OCPConst.hpp:27</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2d05bd9d04bf54565f5192d547dd415f"><div class="ttname"><a href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a></div><div class="ttdeci">const OCP_DBL CONV1</div><div class="ttdoc">1 bbl = CONV1 ft3</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00063">OCPConst.hpp:63</a></div></div>
@@ -648,11 +645,11 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 <div class="ttc" id="aOCPConst_8hpp_html_ac24799a9ff3e96c31cbcd6e5a04dd3e0"><div class="ttname"><a href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a></div><div class="ttdeci">const USI PROD</div><div class="ttdoc">Well type = producer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00123">OCPConst.hpp:123</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_ae37f81091d617a936c92b2cc1ba0c522"><div class="ttname"><a href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a></div><div class="ttdeci">const USI INJ</div><div class="ttdoc">Well type = injector.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00122">OCPConst.hpp:122</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
-<div class="ttc" id="aclassMixtureThermal__K01_html_aaefe648b18a6b13d0732fa54e75da1c8"><div class="ttname"><a href="classMixtureThermal__K01.html#aaefe648b18a6b13d0732fa54e75da1c8">MixtureThermal_K01::XiPhase</a></div><div class="ttdeci">OCP_DBL XiPhase(const OCP_DBL &amp;Pin, const OCP_DBL &amp;Tin, const OCP_DBL *Ziin, const USI &amp;tarPhase) override</div><div class="ttdef"><b>Definition:</b> <a href="MixtureThermal__k_8cpp_source.html#l00459">MixtureThermal_k.cpp:459</a></div></div>
+<div class="ttc" id="aclassMixtureThermal__K01_html_aaefe648b18a6b13d0732fa54e75da1c8"><div class="ttname"><a href="classMixtureThermal__K01.html#aaefe648b18a6b13d0732fa54e75da1c8">MixtureThermal_K01::XiPhase</a></div><div class="ttdeci">OCP_DBL XiPhase(const OCP_DBL &amp;Pin, const OCP_DBL &amp;Tin, const OCP_DBL *Ziin, const USI &amp;tarPhase) override</div><div class="ttdef"><b>Definition:</b> <a href="MixtureThermal__k_8cpp_source.html#l00454">MixtureThermal_k.cpp:454</a></div></div>
 <div class="ttc" id="aclassMixture_html_a13babfd95b6ec1687fb5e479e5a01707"><div class="ttname"><a href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">Mixture::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00242">Mixture.hpp:242</a></div></div>
 <div class="ttc" id="aclassMixture_html_a33b6d34ba499a57d9923d5316b652efc"><div class="ttname"><a href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">Mixture::numPhase</a></div><div class="ttdeci">USI numPhase</div><div class="ttdoc">num of phases.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00241">Mixture.hpp:241</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00063">CONV1</a>, <a class="el" href="OCPConst_8hpp_source.html#l00122">INJ</a>, <a class="el" href="OCPConst_8hpp_source.html#l00134">LRATE_MODE</a>, <a class="el" href="Mixture_8hpp_source.html#l00242">Mixture::numCom</a>, <a class="el" href="Mixture_8hpp_source.html#l00241">Mixture::numPhase</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="OCPConst_8hpp_source.html#l00131">ORATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00123">PROD</a>, <a class="el" href="OCPConst_8hpp_source.html#l00093">WATER</a>, <a class="el" href="OCPConst_8hpp_source.html#l00133">WRATE_MODE</a>, and <a class="el" href="MixtureThermal__k_8cpp_source.html#l00459">XiPhase()</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00063">CONV1</a>, <a class="el" href="OCPConst_8hpp_source.html#l00122">INJ</a>, <a class="el" href="OCPConst_8hpp_source.html#l00134">LRATE_MODE</a>, <a class="el" href="Mixture_8hpp_source.html#l00242">Mixture::numCom</a>, <a class="el" href="Mixture_8hpp_source.html#l00241">Mixture::numPhase</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="OCPConst_8hpp_source.html#l00131">ORATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00123">PROD</a>, <a class="el" href="OCPConst_8hpp_source.html#l00093">WATER</a>, <a class="el" href="OCPConst_8hpp_source.html#l00133">WRATE_MODE</a>, and <a class="el" href="MixtureThermal__k_8cpp_source.html#l00454">XiPhase()</a>.</p>
 
 </div>
 </div>
@@ -705,23 +702,22 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 
 <p>Implements <a class="el" href="classMixture.html#a0e73af7673e5a51d6f1a1a7853f79338">Mixture</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureThermal__k_8cpp_source.html#l00459">459</a> of file <a class="el" href="MixtureThermal__k_8cpp_source.html">MixtureThermal_k.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;{</div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    <a class="code" href="classMixture.html#a2de2ed104e4a8b5569c80d852c6fec9f">P</a> = Pin; <a class="code" href="classMixture.html#a6a50911ba85e0261ad76fac190e1c1b2">T</a> = Tin + <a class="code" href="OCPConst_8hpp.html#ab7845973eda40fb562b37ba643237bd3">CONV5</a>;</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dP = <a class="code" href="classMixture.html#a2de2ed104e4a8b5569c80d852c6fec9f">P</a> - <a class="code" href="classMixtureThermal__K01.html#a882767167a4233ff4c6bcd68d7de2d11">Pref</a>;</div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dT = <a class="code" href="classMixture.html#a6a50911ba85e0261ad76fac190e1c1b2">T</a> - <a class="code" href="classMixtureThermal__K01.html#a337822d7e15f071441752c57dffe4369">Tref</a>;</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160; </div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    <span class="keywordflow">if</span> (tarPhase == <a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>) {</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;        <span class="comment">// inj fluid is water</span></div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> xiw = <a class="code" href="classMixtureThermal__K01.html#aa4d83585479254fabf304c3ebe98e57d">xi_ref</a>[1] * exp(<a class="code" href="classMixtureThermal__K01.html#ad877a3e32e205308556386da4bccb08f">cp</a>[1] * dP - <a class="code" href="classMixtureThermal__K01.html#a251f3bb81d64d3dfe54497c8edd6966e">ct1</a>[1] * dT -</div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;            <a class="code" href="classMixtureThermal__K01.html#a411d34cae298a7cf69f945ac2255f7c1">ct2</a>[1] * pow(dT, 2) / 2 +</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;            <a class="code" href="classMixtureThermal__K01.html#a0a2634f3a41f8a514b3f76fce90b3230">cpt</a>[1] * dP * dT);</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;        <span class="keywordflow">return</span> xiw;</div>
+<p class="definition">Definition at line <a class="el" href="MixtureThermal__k_8cpp_source.html#l00454">454</a> of file <a class="el" href="MixtureThermal__k_8cpp_source.html">MixtureThermal_k.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;{</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    <a class="code" href="classMixture.html#a2de2ed104e4a8b5569c80d852c6fec9f">P</a>                = Pin;</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    <a class="code" href="classMixture.html#a6a50911ba85e0261ad76fac190e1c1b2">T</a>                = Tin + <a class="code" href="OCPConst_8hpp.html#ab7845973eda40fb562b37ba643237bd3">CONV5</a>;</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dP = <a class="code" href="classMixture.html#a2de2ed104e4a8b5569c80d852c6fec9f">P</a> - <a class="code" href="classMixtureThermal__K01.html#a882767167a4233ff4c6bcd68d7de2d11">Pref</a>;</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dT = <a class="code" href="classMixture.html#a6a50911ba85e0261ad76fac190e1c1b2">T</a> - <a class="code" href="classMixtureThermal__K01.html#a337822d7e15f071441752c57dffe4369">Tref</a>;</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160; </div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;    <span class="keywordflow">if</span> (tarPhase == <a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>) {</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;        <span class="comment">// inj fluid is water</span></div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> xiw = <a class="code" href="classMixtureThermal__K01.html#aa4d83585479254fabf304c3ebe98e57d">xi_ref</a>[1] * exp(<a class="code" href="classMixtureThermal__K01.html#ad877a3e32e205308556386da4bccb08f">cp</a>[1] * dP - <a class="code" href="classMixtureThermal__K01.html#a251f3bb81d64d3dfe54497c8edd6966e">ct1</a>[1] * dT -</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;                                      <a class="code" href="classMixtureThermal__K01.html#a411d34cae298a7cf69f945ac2255f7c1">ct2</a>[1] * pow(dT, 2) / 2 + <a class="code" href="classMixtureThermal__K01.html#a0a2634f3a41f8a514b3f76fce90b3230">cpt</a>[1] * dP * dT);</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;        <span class="keywordflow">return</span> xiw;</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong tarPhase!&quot;</span>);</div>
 <div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;    }</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong tarPhase!&quot;</span>);</div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;    }</div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;}</div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_ab7845973eda40fb562b37ba643237bd3"><div class="ttname"><a href="OCPConst_8hpp.html#ab7845973eda40fb562b37ba643237bd3">CONV5</a></div><div class="ttdeci">const OCP_DBL CONV5</div><div class="ttdoc">0 F = CONV5 R</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00067">OCPConst.hpp:67</a></div></div>
 <div class="ttc" id="aclassMixtureThermal__K01_html_a0a2634f3a41f8a514b3f76fce90b3230"><div class="ttname"><a href="classMixtureThermal__K01.html#a0a2634f3a41f8a514b3f76fce90b3230">MixtureThermal_K01::cpt</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; cpt</div><div class="ttdef"><b>Definition:</b> <a href="MixtureThermal_8hpp_source.html#l00164">MixtureThermal.hpp:164</a></div></div>
 <div class="ttc" id="aclassMixtureThermal__K01_html_a251f3bb81d64d3dfe54497c8edd6966e"><div class="ttname"><a href="classMixtureThermal__K01.html#a251f3bb81d64d3dfe54497c8edd6966e">MixtureThermal_K01::ct1</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; ct1</div><div class="ttdoc">The first thermal expansion coefficient, 1/F.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureThermal_8hpp_source.html#l00162">MixtureThermal.hpp:162</a></div></div>
@@ -1070,7 +1066,7 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 5 2023 08:28:21 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Feb 5 2023 08:32:04 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
