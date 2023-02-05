@@ -68,7 +68,7 @@ using namespace std;
 #define PC_FASP4_SHARE 74 ///< Sharing setup stage for PC_FASP4, use with caution
 #define RESET_CONST    35 ///< Sharing threshold for PC_FASP1_SHARE, PC_FASP4_SHARE
 
-/// Basic FASP solver class
+/// Basic FASP solver class.
 class FaspSolver : public LinearSolver
 {
 public:

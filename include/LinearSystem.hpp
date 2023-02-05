@@ -19,27 +19,26 @@
 #include <string>
 
 // OpenCAEPoro header files
+#include "DenseMat.hpp"
 #include "FaspSolver.hpp"
 #include "OCPConst.hpp"
-#include "DenseMat.hpp"
 
 using namespace std;
 
 /// Linear solvers for discrete systems.
-//  Note: The matrix is stored in the form of row-segmented CSR internaly
+//  Note: The matrix is stored in the form of row-segmented CSR internally
 class LinearSystem
 {
 
 public:
     /// Allocate memory for linear system with max possible number of rows.
     void AllocateRowMem(const OCP_USI& dimMax, const USI& nb);
-    /// Allocate memory for linear system with max possible number of colums.
-    void AllocateColMem(const vector<USI>& bulk2bulk, const vector<vector<OCP_USI>> well2bulk);
-
+    /// Allocate memory for linear system with max possible number of columns.
+    void AllocateColMem(const vector<USI>&            bulk2bulk,
+                        const vector<vector<OCP_USI>> well2bulk);
     /// Clear the internal matrix data for scalar-value problems.
     void ClearData();
 
-    
     /// Return the solution.
     vector<OCP_DBL>& GetSolution() { return u; }
     /// Check whether NAN or INF occurs in equations, used in debug mode.
@@ -52,69 +51,79 @@ public:
     void OutputSolution(const string& filename) const;
 
     // Linear Solver
-    /// Setup LinearSolver
+    /// Setup LinearSolver.
     void SetupLinearSolver(const USI& i, const string& dir, const string& file);
-    /// Assemble Mat for Linear Solver
+    /// Assemble Mat for Linear Solver.
     void AssembleMatLinearSolver() { LS->AssembleMat(colId, val, dim, blockDim, b, u); }
-    /// Solve the Linear System
+    /// Solve the Linear System.
     OCP_INT Solve() { return LS->Solve(); }
 
+    /// Setup dimensions.
+    OCP_USI AddDim(const OCP_USI& n)
+    {
+        dim += n;
+        return dim;
+    }
 
-    /// Setup dimensions
-    OCP_USI AddDim(const OCP_USI& n) { dim += n; return dim; }
-
-    /// Scalar
-    /// Push back a diagonal val, which is always at the first location
-    void NewDiag(const OCP_USI& n, const OCP_DBL& v) { 
+    // Scalar
+    /// Push back a diagonal val, which is always at the first location.
+    void NewDiag(const OCP_USI& n, const OCP_DBL& v)
+    {
         OCP_ASSERT(colId[n].size() == 0, "Wrong Diag");
         colId[n].push_back(n);
         val[n].push_back(v);
     }
-    /// Add a value at diagnal value
-    void AddDiag(const OCP_USI& n, const OCP_DBL& v) {
+    /// Add a value at diagonal value.
+    void AddDiag(const OCP_USI& n, const OCP_DBL& v)
+    {
         OCP_ASSERT(colId[n].size() > 0, "Wrong Diag");
         val[n][0] += v;
     }
-    /// Push back a offdiagonal value
-    void NewOffDiag(const OCP_USI& bId, const OCP_USI& eId, const OCP_DBL& v) {
+    /// Push back a off-diagonal value.
+    void NewOffDiag(const OCP_USI& bId, const OCP_USI& eId, const OCP_DBL& v)
+    {
         OCP_ASSERT(colId[bId].size() > 0, "Wrong Diag");
         colId[bId].push_back(eId);
         val[bId].push_back(v);
     }
-    /// add a value at b[n]
+    /// Add a value at b[n].
     void AddRhs(const OCP_USI& n, const OCP_DBL& v) { b[n] += v; }
-    /// Assign an Initial value at u[n]
+    /// Assign an initial value at u[n].
     void AssignGuess(const OCP_USI& n, const OCP_DBL& v) { u[n] = v; }
 
-    /// Vector
-    void NewDiag(const OCP_USI& n, const vector<OCP_DBL>& v) {
+    // Vector
+    void NewDiag(const OCP_USI& n, const vector<OCP_DBL>& v)
+    {
         OCP_ASSERT(colId[n].size() == 0, "Wrong Diag");
         colId[n].push_back(n);
         val[n].insert(val[n].begin(), v.begin(), v.end());
     }
-    void AddDiag(const OCP_USI& n, const vector<OCP_DBL>& v) {
+    void AddDiag(const OCP_USI& n, const vector<OCP_DBL>& v)
+    {
         OCP_ASSERT(colId[n].size() > 0, "Wrong Diag");
         for (USI i = 0; i < blockSize; i++) {
             val[n][i] += v[i];
         }
     }
-    void NewOffDiag(const OCP_USI& bId, const OCP_USI& eId, const vector<OCP_DBL>& v) {
+    void NewOffDiag(const OCP_USI& bId, const OCP_USI& eId, const vector<OCP_DBL>& v)
+    {
         OCP_ASSERT(colId[bId].size() > 0, "Wrong Diag");
         colId[bId].push_back(eId);
         val[bId].insert(val[bId].end(), v.begin(), v.end());
     }
-    /// add a value at b[n]
-    void AddRhs(const OCP_USI& n, const vector<OCP_DBL>& v) {
+    /// Add a value at b[n].
+    void AddRhs(const OCP_USI& n, const vector<OCP_DBL>& v)
+    {
         for (USI i = 0; i < blockDim; i++) {
             b[n * blockDim + i] += v[i];
         }
     }
 
-    /// Assign Rhs by Accumulating
+    /// Assign Rhs by Accumulating.
     void AssembleRhsAccumulate(const vector<OCP_DBL>& rhs);
-    /// Assign Rhs by Copying
+    /// Assign Rhs by Copying.
     void AssembleRhsCopy(const vector<OCP_DBL>& rhs);
-    /// Return the Max Iters
+    /// Return the number of iterations.
     USI GetNumIters() { return LS->GetNumIters(); }
 
 private:
@@ -130,7 +139,7 @@ private:
     // The following values are stored for each row. Among them, rowCapacity is the max
     // possible capacity of each row of the matrix. It is just a little bigger than the
     // actual size and is used to allocate memory at the beginning of simulation.
-    // diagVal is an auxiliary variable used to help setup entries in diagnal line and
+    // diagVal is an auxiliary variable used to help setup entries in diagonal line and
     // it will only be used when matrix is assembled.
     vector<USI>             rowCapacity; ///< Maximal capacity of each row.
     vector<vector<OCP_USI>> colId;       ///< Column indices of nonzero entry.
