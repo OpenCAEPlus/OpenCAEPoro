@@ -263,8 +263,10 @@ void Grid::CalActiveGridIsoT(const OCP_DBL& e1, const OCP_DBL& e2)
         count++;
     }
     activeGridNum = count;
-    cout << "Number of inactive grid cell is " << (numGrid - activeGridNum) << " ("
-         << (numGrid - activeGridNum) * 100.0 / numGrid << "%)" << endl;
+    if (numGrid > activeGridNum) {
+        cout << "  Number of inactive cells is " << (numGrid - activeGridNum) << " ("
+             << (numGrid - activeGridNum) * 100.0 / numGrid << "%)" << endl;
+    }
 
     // fluid grid = active grid
     fluidGridNum = activeGridNum;
@@ -296,8 +298,10 @@ void Grid::CalActiveGridT(const OCP_DBL& e1, const OCP_DBL& e2)
         }
     }
     activeGridNum = activeCount;
-    cout << "Number of inactive grid cell is " << (numGrid - activeGridNum) << " ("
-         << (numGrid - activeGridNum) * 100.0 / numGrid << "%)" << endl;
+    if (numGrid > activeGridNum) {
+        cout << "  Number of inactive cells is " << (numGrid - activeGridNum) << " ("
+             << (numGrid - activeGridNum) * 100.0 / numGrid << "%)" << endl;
+    }
 
     fluidGridNum = fluidCount;
     // temp

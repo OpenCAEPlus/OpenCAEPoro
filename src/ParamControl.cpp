@@ -113,7 +113,7 @@ void ParamControl::InputMETHOD(ifstream& ifs)
     cout << "\n---------------------" << endl
          << "METHOD"
          << "\n---------------------" << endl;
-    cout << method << "  " << linearSolve << endl;
+    cout << "   " << method << "  " << linearSolve << endl;
 }
 
 /// Read TUNING parameters.

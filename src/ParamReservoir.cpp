@@ -312,7 +312,7 @@ void ParamReservoir::DisplayDIMENS()
     cout << "\n---------------------" << endl
          << "DIMENS"
          << "\n---------------------" << endl;
-    cout << dimens.nx << "  " << dimens.ny << "  " << dimens.nz << endl;
+    cout << "   " << dimens.nx << "  " << dimens.ny << "  " << dimens.nz << endl;
 }
 
 /// TODO: Add Doxygen
@@ -542,7 +542,7 @@ void ParamReservoir::InputROCK(ifstream& ifs)
         }
         rockSet.push_back(rock);
 
-        cout << rock.type << "   " << rock.Pref << "   " << rock.cp1 << "   "
+        cout << "   " << rock.type << "   " << rock.Pref << "   " << rock.cp1 << "   "
              << rock.cp2 << endl;
     }
 }
@@ -669,8 +669,8 @@ void ParamReservoir::InputGRAVITY(ifstream& ifs)
     cout << "\n---------------------" << endl
          << "GRAVITY"
          << "\n---------------------" << endl;
-    cout << gravity.data[0] << "  " << gravity.data[1] << "  " << gravity.data[2]
-         << endl;
+    cout << "   " << gravity.data[0] << "  " << gravity.data[1] << "  "
+         << gravity.data[2] << endl;
 }
 
 /// Read data from the DENSITY keyword.
@@ -730,6 +730,7 @@ void ParamReservoir::InputEQUIL(ifstream& ifs)
     cout << "\n---------------------" << endl
          << "EQUIL"
          << "\n---------------------" << endl;
+    cout << "   ";
     for (USI i = 0; i < 6; i++) cout << EQUIL[i] << "  ";
     cout << endl;
 }
@@ -752,7 +753,7 @@ void ParamReservoir::InputTABDIMS(ifstream& ifs)
     cout << "\n---------------------" << endl
          << "TABDIMS"
          << "\n---------------------" << endl;
-    cout << NTSFUN << "   " << NTPVT << "   " << NTROOC << endl;
+    cout << "   " << NTSFUN << "   " << NTPVT << "   " << NTROOC << endl;
 }
 
 /// Region information like SATNUM to decide which grid belongs to which saturation
@@ -781,7 +782,7 @@ void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
         if (vbuf[0] == "/") break;
 
         for (auto& str : vbuf) {
-            // if m*n occurs, then push back n  m times
+            // if m*n occurs, then push back n m times
             auto pos = str.find('*');
             if (pos == string::npos) {
                 ptr->data.push_back(stod(str));
@@ -804,7 +805,6 @@ void ParamReservoir::CheckParam()
     CheckEQUIL();
     CheckDenGra();
     CheckPhase();
-    // CheckPhaseTab();
     CheckRegion();
     CheckRock();
 }
@@ -830,7 +830,7 @@ void ParamReservoir::CheckGrid()
 
     if (ntg.size() != numGrid) {
         ntg.resize(numGrid, 1);
-        cout << "Reset Ntg size from " << ntg.size() << " to 1!" << endl;
+        cout << "Set net-to-gross ratio to 1.0!" << endl;
     }
 }
 
@@ -901,7 +901,7 @@ void ParamReservoir::CheckRegion() const
 void ParamReservoir::CheckEqlRegion() const
 {
     if (PBVD_T.data.size() > 1) {
-        OCP_ABORT("Only one equilibration region is supported!");
+        OCP_ABORT("More than one equilibrium region is not supported!");
     }
 }
 
@@ -910,6 +910,7 @@ void TableSet::DisplayTable() const
 {
     cout << "\n---------------------" << endl
          << name << "\n---------------------" << endl;
+
     for (USI n = 0; n < data.size(); n++) {
         if (refName.size() > n) {
             cout << refName[n] << "   ";
@@ -919,7 +920,7 @@ void TableSet::DisplayTable() const
         const USI len = data[n][0].size();
         for (USI i = 0; i < len; i++) {
             for (USI j = 0; j < colNum; j++) {
-                cout << setw(12) << data[n][j][i];
+                cout << setw(10) << data[n][j][i];
             }
             cout << "\n";
         }
@@ -1076,7 +1077,7 @@ Type_A_r<vector<OCP_DBL>>* ComponentParam::FindPtr01(const string& varName)
 
 void ComponentParam::InputRefPR(ifstream& ifs, const string& keyword)
 {
-    OCP_ASSERT(NTPVT > 0, "NTPVT in TABDIMS hasn't be input!");
+    OCP_ASSERT(NTPVT > 0, "NTPVT has not been set!");
 
     vector<OCP_DBL>* objPtr = nullptr;
     objPtr                  = FindPtr02(keyword);
@@ -1122,7 +1123,7 @@ vector<OCP_DBL>* ComponentParam::FindPtr02(const string& varName)
 
 void ComponentParam::InputCOMPONENTS(ifstream& ifs, const string& keyword)
 {
-    OCP_ASSERT((numCom > 0) && (NTPVT > 0), "NPNC hasn't be input!");
+    OCP_ASSERT((numCom > 0) && (NTPVT > 0), "NPNC has not been set!");
 
     Type_A_r<vector<OCP_DBL>>* objPtr = nullptr;
     objPtr                            = FindPtr01(keyword);
@@ -1169,7 +1170,7 @@ void ComponentParam::InputCOMPONENTS(ifstream& ifs, const string& keyword)
 
 void ComponentParam::InputCNAMES(ifstream& ifs)
 {
-    OCP_ASSERT(numCom > 0, "NCNP hasn't be input!");
+    OCP_ASSERT(numCom > 0, "numCom has not been set!");
 
     vector<string> vbuf;
     while (OCP_TRUE) {
@@ -1211,7 +1212,7 @@ void ComponentParam::InputLBCCOEF(ifstream& ifs)
 /// Input Binary Interaction Coefficients Matrix
 void ComponentParam::InputBIC(ifstream& ifs)
 {
-    OCP_ASSERT((numCom > 0) && (NTPVT > 0), "NCNP hasn't been input!");
+    OCP_ASSERT((numCom > 0) && (NTPVT > 0), "numCom or NTPVT has not been set!");
 
     BIC.resize(NTPVT);
 
@@ -1240,7 +1241,6 @@ void ComponentParam::InputBIC(ifstream& ifs)
 
 void ComponentParam::InputVISCTAB(ifstream& ifs)
 {
-
     vector<string>          vbuf;
     vector<vector<OCP_DBL>> tmp;
     USI                     ncol = numCom + 1; // temp + comps
