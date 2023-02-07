@@ -25,7 +25,7 @@
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCAEPoro
-   &#160;<span id="projectnumber">v0.4.9</span>
+   &#160;<span id="projectnumber">v0.5.0</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -509,7 +509,7 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 <p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00901">901</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00902"></a><span class="lineno">  902</span>&#160;{</div>
 <div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classParamReservoir.html#a51be9d4f91ca1477803baf992d21eadb">PBVD_T</a>.<a class="code" href="classTableSet.html#a5d0077031b988faa104e3f19ce0c9393">data</a>.size() &gt; 1) {</div>
-<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Only one equilibration region is supported!&quot;</span>);</div>
+<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;More than one equilibrium region is not supported!&quot;</span>);</div>
 <div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;    }</div>
 <div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;}</div>
 <div class="ttc" id="aclassParamReservoir_html_a51be9d4f91ca1477803baf992d21eadb"><div class="ttname"><a href="classParamReservoir.html#a51be9d4f91ca1477803baf992d21eadb">ParamReservoir::PBVD_T</a></div><div class="ttdeci">TableSet PBVD_T</div><div class="ttdoc">Table set of PBVD.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00277">ParamReservoir.hpp:277</a></div></div>
@@ -585,7 +585,7 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 <div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160; </div>
 <div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classParamReservoir.html#a999f94de57b453fce9e59944124b9824">ntg</a>.size() != <a class="code" href="classParamReservoir.html#afe97864d374d9efe0f6f7b2287dd918a">numGrid</a>) {</div>
 <div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;        <a class="code" href="classParamReservoir.html#a999f94de57b453fce9e59944124b9824">ntg</a>.resize(<a class="code" href="classParamReservoir.html#afe97864d374d9efe0f6f7b2287dd918a">numGrid</a>, 1);</div>
-<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Reset Ntg size from &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#a999f94de57b453fce9e59944124b9824">ntg</a>.size() &lt;&lt; <span class="stringliteral">&quot; to 1!&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Set net-to-gross ratio to 1.0!&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;    }</div>
 <div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;}</div>
 <div class="ttc" id="aclassDimens_html_a0417b498c92ff029181c93faa84f3245"><div class="ttname"><a href="classDimens.html#a0417b498c92ff029181c93faa84f3245">Dimens::nx</a></div><div class="ttdeci">USI nx</div><div class="ttdoc">Num of bulks along x-direction.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00044">ParamReservoir.hpp:44</a></div></div>
@@ -626,13 +626,12 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 <p>Check the reservoir param from input file. </p>
 <p>Check consistency of input parameters. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00801">801</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;{</div>
-<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;    <a class="code" href="classParamReservoir.html#a8c09b6008c9125efe79dc95f09bb8298">CheckGrid</a>();</div>
-<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;    <a class="code" href="classParamReservoir.html#a0b2631390134a78a00e571d99e654c03">CheckEQUIL</a>();</div>
-<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;    <a class="code" href="classParamReservoir.html#abe43b34bb82b897ffbd397a71d80a179">CheckDenGra</a>();</div>
-<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;    <a class="code" href="classParamReservoir.html#a388e0b2a18f725b7d9903a99ecf5bae4">CheckPhase</a>();</div>
-<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;    <span class="comment">// CheckPhaseTab();</span></div>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00802">802</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;{</div>
+<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;    <a class="code" href="classParamReservoir.html#a8c09b6008c9125efe79dc95f09bb8298">CheckGrid</a>();</div>
+<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;    <a class="code" href="classParamReservoir.html#a0b2631390134a78a00e571d99e654c03">CheckEQUIL</a>();</div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;    <a class="code" href="classParamReservoir.html#abe43b34bb82b897ffbd397a71d80a179">CheckDenGra</a>();</div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;    <a class="code" href="classParamReservoir.html#a388e0b2a18f725b7d9903a99ecf5bae4">CheckPhase</a>();</div>
 <div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;    <a class="code" href="classParamReservoir.html#a8e42fa222c64943af856ef453ec70eb1">CheckRegion</a>();</div>
 <div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;    <a class="code" href="classParamReservoir.html#aeeb7cd2a55e14dab1d745d344aeaba22">CheckRock</a>();</div>
 <div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;}</div>
@@ -882,7 +881,7 @@ template&lt;typename T &gt; </div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;\n---------------------&quot;</span> &lt;&lt; endl</div>
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;DIMENS&quot;</span></div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;\n---------------------&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    cout &lt;&lt; <a class="code" href="classParamReservoir.html#acc73f1908d007c155a6677d472774f2a">dimens</a>.<a class="code" href="classDimens.html#a0417b498c92ff029181c93faa84f3245">nx</a> &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#acc73f1908d007c155a6677d472774f2a">dimens</a>.<a class="code" href="classDimens.html#a2f236756aa31af34003346d336b31a0d">ny</a> &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#acc73f1908d007c155a6677d472774f2a">dimens</a>.<a class="code" href="classDimens.html#aac9f3eb9d1a00941e8fada6b68ca11bf">nz</a> &lt;&lt; endl;</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;   &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#acc73f1908d007c155a6677d472774f2a">dimens</a>.<a class="code" href="classDimens.html#a0417b498c92ff029181c93faa84f3245">nx</a> &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#acc73f1908d007c155a6677d472774f2a">dimens</a>.<a class="code" href="classDimens.html#a2f236756aa31af34003346d336b31a0d">ny</a> &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#acc73f1908d007c155a6677d472774f2a">dimens</a>.<a class="code" href="classDimens.html#aac9f3eb9d1a00941e8fada6b68ca11bf">nz</a> &lt;&lt; endl;</div>
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;}</div>
 <div class="ttc" id="aclassDimens_html_aac9f3eb9d1a00941e8fada6b68ca11bf"><div class="ttname"><a href="classDimens.html#aac9f3eb9d1a00941e8fada6b68ca11bf">Dimens::nz</a></div><div class="ttdeci">USI nz</div><div class="ttdoc">Num of bulks along z-direction.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00046">ParamReservoir.hpp:46</a></div></div>
 </div><!-- fragment -->
@@ -1233,7 +1232,7 @@ template&lt;typename T &gt; </div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;}</div>
 <div class="ttc" id="aUtilInput_8hpp_html_a6ff8907e3f0c8e22861efd0f733314e1"><div class="ttname"><a href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a></div><div class="ttdeci">OCP_BOOL ReadLine(ifstream &amp;ifs, vector&lt; string &gt; &amp;result)</div><div class="ttdef"><b>Definition:</b> <a href="UtilInput_8cpp_source.html#l00014">UtilInput.cpp:14</a></div></div>
 <div class="ttc" id="aclassComponentParam_html_a62316689860c3cfa5c4795cbdad31364"><div class="ttname"><a href="classComponentParam.html#a62316689860c3cfa5c4795cbdad31364">ComponentParam::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components, water is excluded.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00119">ParamReservoir.hpp:119</a></div></div>
-<div class="ttc" id="aclassComponentParam_html_abc2d030c30110e82d2a77991d18bc12d"><div class="ttname"><a href="classComponentParam.html#abc2d030c30110e82d2a77991d18bc12d">ComponentParam::Init</a></div><div class="ttdeci">void Init()</div><div class="ttdoc">Init Params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8cpp_source.html#l00929">ParamReservoir.cpp:929</a></div></div>
+<div class="ttc" id="aclassComponentParam_html_abc2d030c30110e82d2a77991d18bc12d"><div class="ttname"><a href="classComponentParam.html#abc2d030c30110e82d2a77991d18bc12d">ComponentParam::Init</a></div><div class="ttdeci">void Init()</div><div class="ttdoc">Init Params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8cpp_source.html#l00930">ParamReservoir.cpp:930</a></div></div>
 <div class="ttc" id="aclassParamReservoir_html_a2a882ae9bdc4fb6b8aa9f06379f6e319"><div class="ttname"><a href="classParamReservoir.html#a2a882ae9bdc4fb6b8aa9f06379f6e319">ParamReservoir::comsParam</a></div><div class="ttdeci">ComponentParam comsParam</div><div class="ttdoc">information for components</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00260">ParamReservoir.hpp:260</a></div></div>
 <div class="ttc" id="aclassParamReservoir_html_a6d6acb6b7054c58a4482086b9a827bd5"><div class="ttname"><a href="classParamReservoir.html#a6d6acb6b7054c58a4482086b9a827bd5">ParamReservoir::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00285">ParamReservoir.hpp:285</a></div></div>
 </div><!-- fragment -->
@@ -1497,9 +1496,10 @@ template&lt;typename T &gt; </div>
 <div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;\n---------------------&quot;</span> &lt;&lt; endl</div>
 <div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;EQUIL&quot;</span></div>
 <div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;\n---------------------&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 6; i++) cout &lt;&lt; <a class="code" href="classParamReservoir.html#a2290127fca5524192133eff718854d7e">EQUIL</a>[i] &lt;&lt; <span class="stringliteral">&quot;  &quot;</span>;</div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;    cout &lt;&lt; endl;</div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;}</div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 6; i++) cout &lt;&lt; <a class="code" href="classParamReservoir.html#a2290127fca5524192133eff718854d7e">EQUIL</a>[i] &lt;&lt; <span class="stringliteral">&quot;  &quot;</span>;</div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;    cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilInput_8cpp_source.html#l00050">DealDefault()</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00281">EQUIL</a>, and <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>.</p>
 
@@ -1541,8 +1541,8 @@ template&lt;typename T &gt; </div>
 <div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;\n---------------------&quot;</span> &lt;&lt; endl</div>
 <div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;GRAVITY&quot;</span></div>
 <div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;\n---------------------&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;    cout &lt;&lt; <a class="code" href="classParamReservoir.html#abd537e664cfcaf4c70ff6331f2a8a92a">gravity</a>.<a class="code" href="classType__A__r.html#a502de94cb0d66c8e6dd941c5759335f4">data</a>[0] &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#abd537e664cfcaf4c70ff6331f2a8a92a">gravity</a>.<a class="code" href="classType__A__r.html#a502de94cb0d66c8e6dd941c5759335f4">data</a>[1] &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#abd537e664cfcaf4c70ff6331f2a8a92a">gravity</a>.<a class="code" href="classType__A__r.html#a502de94cb0d66c8e6dd941c5759335f4">data</a>[2]</div>
-<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;         &lt;&lt; endl;</div>
+<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;   &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#abd537e664cfcaf4c70ff6331f2a8a92a">gravity</a>.<a class="code" href="classType__A__r.html#a502de94cb0d66c8e6dd941c5759335f4">data</a>[0] &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#abd537e664cfcaf4c70ff6331f2a8a92a">gravity</a>.<a class="code" href="classType__A__r.html#a502de94cb0d66c8e6dd941c5759335f4">data</a>[1] &lt;&lt; <span class="stringliteral">&quot;  &quot;</span></div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;         &lt;&lt; <a class="code" href="classParamReservoir.html#abd537e664cfcaf4c70ff6331f2a8a92a">gravity</a>.<a class="code" href="classType__A__r.html#a502de94cb0d66c8e6dd941c5759335f4">data</a>[2] &lt;&lt; endl;</div>
 <div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00082">Type_A_r&lt; T &gt;::activity</a>, and <a class="el" href="ParamReservoir_8hpp_source.html#l00246">gravity</a>.</p>
@@ -1743,45 +1743,45 @@ template&lt;typename T &gt; </div>
 <p>Input the keyword: SATNUM and PVTNUM. </p>
 <p>Region information like SATNUM to decide which grid belongs to which saturation region, so corresponding saturation table will be used. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00760">760</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;{</div>
-<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;    <a class="code" href="classType__A__r.html">Type_A_r&lt;OCP_DBL&gt;</a>* ptr = &amp;<a class="code" href="classParamReservoir.html#a6d6224357ad57acbb6d14467122d7060">PVTNUM</a>;</div>
-<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>                lim = <a class="code" href="classParamReservoir.html#aec417a77e7370401a9fc44b0c04c515f">NTPVT</a>;</div>
-<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160; </div>
-<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;    <span class="keywordflow">if</span> (keyword == <span class="stringliteral">&quot;SATNUM&quot;</span>) {</div>
-<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;        ptr = &amp;<a class="code" href="classParamReservoir.html#a17b2dada29d4ef2a4f4eac2f4d499b2a">SATNUM</a>;</div>
-<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;        lim = <a class="code" href="classParamReservoir.html#a0b324e72ce5618b3145c4df8e1c38186">NTSFUN</a>;</div>
-<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (keyword == <span class="stringliteral">&quot;ACTNUM&quot;</span>) {</div>
-<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;        ptr = &amp;<a class="code" href="classParamReservoir.html#a237932f1285c080ebf92787f758bc492">ACTNUM</a>;</div>
-<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (keyword == <span class="stringliteral">&quot;ROCKNUM&quot;</span>) {</div>
-<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;        ptr = &amp;<a class="code" href="classParamReservoir.html#ad72cbd12fbb83f7e95155da59eeb9f99">ROCKNUM</a>;</div>
-<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;    }</div>
-<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160; </div>
-<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;    ptr-&gt;<a class="code" href="classType__A__r.html#a15e4c1427bcee763236ee7d05874fd43">activity</a> = OCP_TRUE;</div>
-<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;    ptr-&gt;<a class="code" href="classType__A__r.html#a502de94cb0d66c8e6dd941c5759335f4">data</a>.reserve(<a class="code" href="classParamReservoir.html#afe97864d374d9efe0f6f7b2287dd918a">numGrid</a>);</div>
-<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;    vector&lt;string&gt;  vbuf;</div>
-<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;    vector&lt;OCP_USI&gt; obj;</div>
-<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;    vector&lt;USI&gt;     region;</div>
-<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160; </div>
-<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;    <span class="keywordflow">while</span> (<a class="code" href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a>(ifs, vbuf)) {</div>
-<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;        <span class="keywordflow">if</span> (vbuf[0] == <span class="stringliteral">&quot;/&quot;</span>) <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160; </div>
-<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; str : vbuf) {</div>
-<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;            <span class="comment">// if m*n occurs, then push back n  m times</span></div>
-<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;            <span class="keyword">auto</span> pos = str.find(<span class="charliteral">&#39;*&#39;</span>);</div>
-<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;            <span class="keywordflow">if</span> (pos == string::npos) {</div>
-<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;                ptr-&gt;<a class="code" href="classType__A__r.html#a502de94cb0d66c8e6dd941c5759335f4">data</a>.push_back(stod(str));</div>
-<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     len = str.size();</div>
-<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> num = stoi(str.substr(0, pos));</div>
-<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> val = stod(str.substr(pos + 1, len - (pos + 1)));</div>
-<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; num; i++) ptr-&gt;<a class="code" href="classType__A__r.html#a502de94cb0d66c8e6dd941c5759335f4">data</a>.push_back(val);</div>
-<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;            }</div>
-<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;        }</div>
-<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;    }</div>
-<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160; </div>
-<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Number of Tables = &quot;</span> &lt;&lt; lim &lt;&lt; endl;</div>
-<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00761">761</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;{</div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;    <a class="code" href="classType__A__r.html">Type_A_r&lt;OCP_DBL&gt;</a>* ptr = &amp;<a class="code" href="classParamReservoir.html#a6d6224357ad57acbb6d14467122d7060">PVTNUM</a>;</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>                lim = <a class="code" href="classParamReservoir.html#aec417a77e7370401a9fc44b0c04c515f">NTPVT</a>;</div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160; </div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;    <span class="keywordflow">if</span> (keyword == <span class="stringliteral">&quot;SATNUM&quot;</span>) {</div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;        ptr = &amp;<a class="code" href="classParamReservoir.html#a17b2dada29d4ef2a4f4eac2f4d499b2a">SATNUM</a>;</div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;        lim = <a class="code" href="classParamReservoir.html#a0b324e72ce5618b3145c4df8e1c38186">NTSFUN</a>;</div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (keyword == <span class="stringliteral">&quot;ACTNUM&quot;</span>) {</div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;        ptr = &amp;<a class="code" href="classParamReservoir.html#a237932f1285c080ebf92787f758bc492">ACTNUM</a>;</div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (keyword == <span class="stringliteral">&quot;ROCKNUM&quot;</span>) {</div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;        ptr = &amp;<a class="code" href="classParamReservoir.html#ad72cbd12fbb83f7e95155da59eeb9f99">ROCKNUM</a>;</div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;    }</div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160; </div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;    ptr-&gt;<a class="code" href="classType__A__r.html#a15e4c1427bcee763236ee7d05874fd43">activity</a> = OCP_TRUE;</div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;    ptr-&gt;<a class="code" href="classType__A__r.html#a502de94cb0d66c8e6dd941c5759335f4">data</a>.reserve(<a class="code" href="classParamReservoir.html#afe97864d374d9efe0f6f7b2287dd918a">numGrid</a>);</div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;    vector&lt;string&gt;  vbuf;</div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;    vector&lt;OCP_USI&gt; obj;</div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;    vector&lt;USI&gt;     region;</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160; </div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;    <span class="keywordflow">while</span> (<a class="code" href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a>(ifs, vbuf)) {</div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;        <span class="keywordflow">if</span> (vbuf[0] == <span class="stringliteral">&quot;/&quot;</span>) <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160; </div>
+<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; str : vbuf) {</div>
+<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;            <span class="comment">// if m*n occurs, then push back n m times</span></div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;            <span class="keyword">auto</span> pos = str.find(<span class="charliteral">&#39;*&#39;</span>);</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;            <span class="keywordflow">if</span> (pos == string::npos) {</div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;                ptr-&gt;<a class="code" href="classType__A__r.html#a502de94cb0d66c8e6dd941c5759335f4">data</a>.push_back(stod(str));</div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     len = str.size();</div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> num = stoi(str.substr(0, pos));</div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> val = stod(str.substr(pos + 1, len - (pos + 1)));</div>
+<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; num; i++) ptr-&gt;<a class="code" href="classType__A__r.html#a502de94cb0d66c8e6dd941c5759335f4">data</a>.push_back(val);</div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;            }</div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;        }</div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;    }</div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160; </div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Number of Tables = &quot;</span> &lt;&lt; lim &lt;&lt; endl;</div>
+<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;}</div>
 <div class="ttc" id="aclassParamReservoir_html_a0b324e72ce5618b3145c4df8e1c38186"><div class="ttname"><a href="classParamReservoir.html#a0b324e72ce5618b3145c4df8e1c38186">ParamReservoir::NTSFUN</a></div><div class="ttdeci">USI NTSFUN</div><div class="ttdoc">Num of SAT regions.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00263">ParamReservoir.hpp:263</a></div></div>
 <div class="ttc" id="aclassParamReservoir_html_aec417a77e7370401a9fc44b0c04c515f"><div class="ttname"><a href="classParamReservoir.html#aec417a77e7370401a9fc44b0c04c515f">ParamReservoir::NTPVT</a></div><div class="ttdeci">USI NTPVT</div><div class="ttdoc">Num of PVT regions.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00264">ParamReservoir.hpp:264</a></div></div>
 <div class="ttc" id="aclassType__A__r_html"><div class="ttname"><a href="classType__A__r.html">Type_A_r&lt; OCP_DBL &gt;</a></div></div>
@@ -1834,7 +1834,7 @@ template&lt;typename T &gt; </div>
 <div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;        }</div>
 <div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;        <a class="code" href="classParamReservoir.html#a0097776601a60c7b96e74415b69a9b1e">rockSet</a>.push_back(rock);</div>
 <div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160; </div>
-<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;        cout &lt;&lt; rock.<a class="code" href="classRockParam.html#ad69d628940de81e46b380cfc023abc80">type</a> &lt;&lt; <span class="stringliteral">&quot;   &quot;</span> &lt;&lt; rock.<a class="code" href="classRockParam.html#a66e864e1e539e5c26e32237dd7b78ab8">Pref</a> &lt;&lt; <span class="stringliteral">&quot;   &quot;</span> &lt;&lt; rock.<a class="code" href="classRockParam.html#a4ba21e18c056df7c0fbe0ae955a45938">cp1</a> &lt;&lt; <span class="stringliteral">&quot;   &quot;</span></div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;   &quot;</span> &lt;&lt; rock.<a class="code" href="classRockParam.html#ad69d628940de81e46b380cfc023abc80">type</a> &lt;&lt; <span class="stringliteral">&quot;   &quot;</span> &lt;&lt; rock.<a class="code" href="classRockParam.html#a66e864e1e539e5c26e32237dd7b78ab8">Pref</a> &lt;&lt; <span class="stringliteral">&quot;   &quot;</span> &lt;&lt; rock.<a class="code" href="classRockParam.html#a4ba21e18c056df7c0fbe0ae955a45938">cp1</a> &lt;&lt; <span class="stringliteral">&quot;   &quot;</span></div>
 <div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;             &lt;&lt; rock.<a class="code" href="classRockParam.html#ae4df55456dcfd6fd0e70ea1eda4e5f4b">cp2</a> &lt;&lt; endl;</div>
 <div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;    }</div>
 <div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;}</div>
@@ -1979,25 +1979,25 @@ template&lt;typename T &gt; </div>
 <p>TABDIMS contains the num of saturation region and PVT region. </p>
 <p>Read data from the TABDIMS keyword. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00738">738</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;{</div>
-<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;    vector&lt;string&gt; vbuf;</div>
-<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;    <a class="code" href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a>(ifs, vbuf);</div>
-<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160; </div>
-<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;    <span class="keywordflow">if</span> (vbuf.size() &lt; 3) {</div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Input the number of Saturation tables, PVT tables, and Rock tables &quot;</span></div>
-<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;                  <span class="stringliteral">&quot;in turn!&quot;</span>);</div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;    }</div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160; </div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;    <a class="code" href="classParamReservoir.html#a0b324e72ce5618b3145c4df8e1c38186">NTSFUN</a> = stoi(vbuf[0]);</div>
-<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;    <a class="code" href="classParamReservoir.html#aec417a77e7370401a9fc44b0c04c515f">NTPVT</a>  = stoi(vbuf[1]);</div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;    <a class="code" href="classParamReservoir.html#a136f58b13eecb1cf568f5d8dd3dc4575">NTROOC</a> = stoi(vbuf[2]);</div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160; </div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;\n---------------------&quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;TABDIMS&quot;</span></div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;\n---------------------&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;    cout &lt;&lt; <a class="code" href="classParamReservoir.html#a0b324e72ce5618b3145c4df8e1c38186">NTSFUN</a> &lt;&lt; <span class="stringliteral">&quot;   &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#aec417a77e7370401a9fc44b0c04c515f">NTPVT</a> &lt;&lt; <span class="stringliteral">&quot;   &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#a136f58b13eecb1cf568f5d8dd3dc4575">NTROOC</a> &lt;&lt; endl;</div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00739">739</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;{</div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;    vector&lt;string&gt; vbuf;</div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;    <a class="code" href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a>(ifs, vbuf);</div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160; </div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;    <span class="keywordflow">if</span> (vbuf.size() &lt; 3) {</div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Input the number of Saturation tables, PVT tables, and Rock tables &quot;</span></div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;                  <span class="stringliteral">&quot;in turn!&quot;</span>);</div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;    }</div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160; </div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;    <a class="code" href="classParamReservoir.html#a0b324e72ce5618b3145c4df8e1c38186">NTSFUN</a> = stoi(vbuf[0]);</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;    <a class="code" href="classParamReservoir.html#aec417a77e7370401a9fc44b0c04c515f">NTPVT</a>  = stoi(vbuf[1]);</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;    <a class="code" href="classParamReservoir.html#a136f58b13eecb1cf568f5d8dd3dc4575">NTROOC</a> = stoi(vbuf[2]);</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160; </div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;\n---------------------&quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;TABDIMS&quot;</span></div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;\n---------------------&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;   &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#a0b324e72ce5618b3145c4df8e1c38186">NTSFUN</a> &lt;&lt; <span class="stringliteral">&quot;   &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#aec417a77e7370401a9fc44b0c04c515f">NTPVT</a> &lt;&lt; <span class="stringliteral">&quot;   &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#a136f58b13eecb1cf568f5d8dd3dc4575">NTROOC</a> &lt;&lt; endl;</div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00264">NTPVT</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00265">NTROOC</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00263">NTSFUN</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, and <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>.</p>
 
@@ -2266,7 +2266,7 @@ template&lt;typename T &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 5 2023 08:32:04 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Feb 7 2023 01:49:51 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
