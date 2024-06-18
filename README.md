@@ -1,5 +1,5 @@
 # OpenCAEPoro
-
+(**Current version(serial) is no longer being updated. Please switch to the parallel version available at https://github.com/OpenCAEPlus/OpenCAEPoroX.**)
 [![Build and publish doc](https://github.com/OpenCAEPlus/OpenCAEPoro/actions/workflows/doc.yml/badge.svg)](https://github.com/OpenCAEPlus/OpenCAEPoro/actions/workflows/doc.yml)
 [![Github pages](https://github.com/OpenCAEPlus/OpenCAEPoro/actions/workflows/gh-page.yml/badge.svg)](https://github.com/OpenCAEPlus/OpenCAEPoro/actions/workflows/gh-page.yml)
 
